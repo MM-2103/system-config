@@ -1,0 +1,30 @@
+[font]
+size = 12.0
+
+[font.bold]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Regular"
+
+[colors.primary]
+foreground = "#dcd7ba"
+background = "#1f1f28"
+
+[colors.selection]
+text = "#c8c093"
+background = "#2d4f67"
+
+
+[cursor]
+style = { shape = "Beam", blinking = "on" }

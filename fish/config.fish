@@ -47,11 +47,11 @@ end
 
 set -gx PATH "/home/mm-2103/.local/bin" $PATH
 
-# Starship
-starship init fish | source
-
 # Zoxide
 zoxide init fish | source
 
 # fnm
 fnm env --use-on-cd --shell fish | source
+
+# Starship
+starship init fish | source
