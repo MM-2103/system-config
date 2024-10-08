@@ -12,6 +12,7 @@ config = {
 	default_cursor_style = "SteadyBar",
 	hide_tab_bar_if_only_one_tab = true,
 	tab_bar_at_bottom = true,
+	term = "wezterm",
 	use_fancy_tab_bar = false,
 	window_decorations = "NONE",
 	window_padding = {
