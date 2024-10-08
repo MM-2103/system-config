@@ -26,15 +26,22 @@ abbr --add artg "php artisan | grep"
 # Aliases
 alias sudo="sudo "
 alias sudoe="sudo -E "
+
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 alias protontricks-launch="flatpak run --command=protontricks-launch com.github.Matoking.protontricks"
+
 alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
+
 alias suspend="systemctl suspend"
+
 alias vim="nvim"
 alias vi="nvim"
+
 alias ll="eza -l"
 alias l="eza -l"
 alias ls="eza"
+
+alias cat="bat"
 
 end
 
