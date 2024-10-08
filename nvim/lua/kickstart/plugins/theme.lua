@@ -1,8 +1,8 @@
 return {
-  'rebelot/kanagawa.nvim',
+  'EdenEast/nightfox.nvim',
   priority = 1000,
   init = function()
-    vim.cmd.colorscheme 'kanagawa'
+    vim.cmd.colorscheme 'carbonfox'
     vim.cmd.hi 'Comment gui=none'
   end,
 }
