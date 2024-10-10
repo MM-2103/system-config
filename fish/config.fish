@@ -82,6 +82,7 @@ alias ls="eza"
 
 alias cat="bat"
 
+alias dotfiles="cd ~/dotfiles && vim"
 end
 
 # pnpm
