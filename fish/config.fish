@@ -92,7 +92,7 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-set -gx PATH "/home/mm-2103/.local/bin" $PATH
+set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/.rvm/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
