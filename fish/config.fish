@@ -71,8 +71,6 @@ alias protontricks-launch="flatpak run --command=protontricks-launch com.github.
 
 alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 
-alias suspend="systemctl suspend"
-
 alias vim="nvim"
 alias vi="nvim"
 
@@ -83,6 +81,9 @@ alias ls="eza"
 alias cat="bat"
 
 alias dotfiles="cd ~/dotfiles && vim"
+
+
+alias t='sesh connect $(sesh list -c | fzf --height 40% --border)'
 end
 
 # pnpm
@@ -92,7 +93,7 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/.rvm/bin" $PATH
+set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/go/bin" $PATH
 
 # Zoxide
 zoxide init fish | source

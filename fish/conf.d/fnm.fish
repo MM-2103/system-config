@@ -1,4 +1,3 @@
-
 # fnm
 set FNM_PATH "/home/mm-2103/.local/share/fnm"
 if [ -d "$FNM_PATH" ]
