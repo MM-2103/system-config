@@ -7,7 +7,6 @@ local beautiful = require("beautiful") -- Theme handling library
 local naughty = require("naughty") -- Notification library
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -235,11 +234,7 @@ awful.screen.connect_for_each_screen(function(s)
 			-- media_player_widget,
 			wibox.widget.systray(),
 			mytextclock,
-			logout_menu_widget({
-				onlock = function()
-					awful.spawn.with_shell("xset s activate")
-				end,
-			}),
+
 			wibox.widget.separator({
 				orientation = "vertical",
 				forced_width = 10,
