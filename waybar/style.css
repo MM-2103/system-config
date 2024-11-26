@@ -43,6 +43,7 @@
 #pulseaudio,
 #custom-lock,
 #network,
+#idle_inhibitor,
 #power-profiles-daemon,
 #custom-power {
   background-color: @surface0;
@@ -90,8 +91,19 @@
 
 #pulseaudio {
   color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
+}
+
+#idle_inhibitor {
+    border-radius: 1rem 0px 0px 1rem;
+    margin-left: 1rem;
+}
+
+#idle_inhibitor.activated {
+    color: @red
+}
+
+#idle_inhibitor.deactivated {
+    color: @green
 }
 
 #network {
