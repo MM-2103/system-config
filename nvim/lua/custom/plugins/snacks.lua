@@ -61,7 +61,7 @@ return {
       sections = {
         {
           section = 'terminal',
-          cmd = 'chafa ~/Pictures/unicorn.png --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1',
+          cmd = 'chafa ~/Pictures/Saved/unicorn.png --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1',
           height = 17,
           padding = 1,
         },
