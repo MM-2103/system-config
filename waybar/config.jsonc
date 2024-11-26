@@ -7,9 +7,9 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode",
-        "sway/scratchpad"
+        "hyprland/workspaces",
+        "hyprland/mode",
+        "hyprland/scratchpad"
     ],
     "modules-center": [
         "hyprland/window"
@@ -22,33 +22,27 @@
         "pulseaudio",
         "network",
         "power-profiles-daemon",
-        "cpu",
-        "memory",
-        "temperature",
         "backlight",
-        "sway/language",
         "battery",
         "clock",
         "tray"
     ],
     // Modules configuration
      "hyprland/workspaces": {
-         "disable-scroll": true,
+         "on-click": "activate",
+         "active-only": false,
+         "all-outputs": true,
          "all-outputs": true,
          "warp-on-scroll": false,
-         "format": "{name}: {icon}",
-         "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1",
+         "format": "{name}",
          "format-icons": {
-             "1": "",
-             "2": "",
-             "3": "",
-             "4": "",
-             "5": "",
              "urgent": "",
              "focused": "",
              "default": ""
-         }
+         },
+         "persistent-workspaces": {
+             "*": 9
+        }
      },
     "keyboard-state": {
         "numlock": true,
@@ -59,10 +53,10 @@
             "unlocked": ""
         }
     },
-    "sway/mode": {
+    "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "sway/scratchpad": {
+    "hyprland/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
         "format-icons": ["", ""],
@@ -97,10 +91,12 @@
     },
     "idle_inhibitor": {
         "format": "{icon}",
+        "tooltip": true,
         "format-icons": {
             "activated": "",
             "deactivated": ""
-        }
+        },
+        "on-click-right": "hyprlock"
     },
     "tray": {
         // "icon-size": 21,
@@ -162,11 +158,13 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format": "{ifname}",
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} ({ipaddr}/{cidr}) ",
+        "format-linked": "{ifname} (No IP) ",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
