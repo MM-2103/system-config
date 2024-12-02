@@ -1,5 +1,5 @@
 [font]
-size = 15.0
+size = 13.0
 
 [font.bold]
 family = "IosevkaTerm Nerd Font Mono"
@@ -18,13 +18,15 @@ family = "IosevkaTerm Nerd Font Mono"
 style = "Regular"
 
 [colors.primary]
-foreground = "#dcd7ba"
-background = "#1f1f28"
+foreground = "#CDD6F4"
+background = "#1E1E2E"
 
 [colors.selection]
-text = "#c8c093"
-background = "#2d4f67"
-
+text = "#1E1E2E"
+background = "#F5E0DC"
 
 [cursor]
 style = { shape = "Beam", blinking = "on" }
+
+[window]
+opacity = 0.7
