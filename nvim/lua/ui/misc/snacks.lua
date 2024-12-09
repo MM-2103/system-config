@@ -3,6 +3,26 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    scratch = {
+
+      keys = {
+        {
+          '<leader>.',
+          function()
+            Snacks.scratch()
+          end,
+          desc = 'Toggle Scratch Buffer',
+        },
+        {
+          '<leader>S',
+          function()
+            Snacks.scratch.select()
+          end,
+          desc = 'Select Scratch Buffer',
+        },
+      },
+    },
+
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
@@ -78,40 +98,40 @@ return {
         --     I USE NEOVIM (btw)
         -- ]],
         --
-        header = [[
-            _-`````-,           ,- '- .
-  .'   .- - |          | - -.  `.
- /.'  /                     `.   \
-:/   :      _...   ..._      ``   :
-::   :     /._ .`:'_.._\.    ||   :
-::    `._ ./  ,`  :    \ . _.''   .
-`:.      /   |  -.  \-. \\_      /
-  \:._ _/  .'   .@)  \@) ` `\ ,.'
-     _/,--'       .- .\,-.`--`.
-       ,'/''     (( \ `  )    
-        /'/'  \    `-'  (      
-         '/''  `._,-----'
-          ''/'    .,---'
-           ''/'      ;:
-             ''/''  ''/
-               ''/''/''
-                 '/'/'
-                  `;
-
-]],
+        --         header = [[
+        --             _-`````-,           ,- '- .
+        --   .'   .- - |          | - -.  `.
+        --  /.'  /                     `.   \
+        -- :/   :      _...   ..._      ``   :
+        -- ::   :     /._ .`:'_.._\.    ||   :
+        -- ::    `._ ./  ,`  :    \ . _.''   .
+        -- `:.      /   |  -.  \-. \\_      /
+        --   \:._ _/  .'   .@)  \@) ` `\ ,.'
+        --      _/,--'       .- .\,-.`--`.
+        --        ,'/''     (( \ `  )
+        --         /'/'  \    `-'  (
+        --          '/''  `._,-----'
+        --           ''/'    .,---'
+        --            ''/'      ;:
+        --              ''/''  ''/
+        --                ''/''/''
+        --                  '/'/'
+        --                   `;
+        --
+        -- ]],
       },
-      -- sections = {
-      --   {
-      --     section = 'terminal',
-      --     cmd = 'chafa $HOME/Pictures/primeface.jpg --format symbols --symbols vhalf --stretch; sleep .1',
-      --     height = 17,
-      --     padding = 1,
-      --   },
-      --   {
-      --     { section = 'keys', gap = 1, padding = 1 },
-      --     { section = 'startup' },
-      --   },
-      -- },
+      sections = {
+        {
+          section = 'terminal',
+          cmd = 'chafa $HOME/Pictures/Saved/Flag_of_Syria.svg.png --format symbols --symbols vhalf --stretch; sleep .1',
+          height = 17,
+          padding = 1,
+        },
+        {
+          { section = 'keys', gap = 1, padding = 1 },
+          { section = 'startup' },
+        },
+      },
     },
     notifier = {
       enabled = true,
