@@ -74,7 +74,7 @@ alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 alias vim="nvim"
 alias vi="nvim"
 
-alias ll="eza -l"
+alias ll="eza -l --total-size"
 alias l="eza -l"
 alias ls="eza"
 
