@@ -74,7 +74,7 @@ alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 alias vim="nvim"
 alias vi="nvim"
 
-alias ll="eza -l --total-size"
+alias ll="eza -l"
 alias l="eza -l"
 alias ls="eza"
 
@@ -93,7 +93,7 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/go/bin" $PATH
+set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/go/bin" "/home/mm-2103/.composer/vendor/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
