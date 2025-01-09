@@ -44,7 +44,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/default/theme.lua")
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "ghostty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 

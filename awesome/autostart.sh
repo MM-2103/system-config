@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 xfce4-clipman &
 nm-applet &
-/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+/usr/lib/polkit-kde-authentication-agent-1 &
 kdeconnectd &
 kdeconnect-indicator &
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
