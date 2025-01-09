@@ -7,7 +7,7 @@ startup_command = "vim"
 
 [[session]]
 name = "Work"
-path = "~/Documents/Work"
+path = "~/projects/work"
 
 [[session]]
 name = "Learning"
@@ -15,4 +15,4 @@ path = "~/learning"
 
 [[session]]
 name = "Hermes Updates"
-path = "~/Documents/School/Year4/Stage/Examen 1/cerberos-hermes-updates"
+path = "~/projects/school/cerberos-hermes-updates"
