@@ -3,6 +3,18 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    zen = {
+      enter = true,
+      fixbuf = false,
+      minimal = false,
+      width = 120,
+      height = 0,
+      backdrop = { transparent = true, blend = 40 },
+      keys = { q = false },
+      wo = {
+        winhighlight = 'NormalFloat:Normal',
+      },
+    },
     scratch = {
 
       keys = {
