@@ -1,0 +1,5 @@
+font-family = "Iosevka Nerd Font Mono"
+background-blur-radius = 10
+window-decoration = false
+
+config-file = "./theme"
