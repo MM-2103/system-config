@@ -38,6 +38,8 @@ function extract
                 uncompress $argv[1]
             case '*.7z'
                 7z x $argv[1]
+            case '*.lz4'
+                lz4 -dc $argv[1] | tar -xv
             case '*'
                 echo "'$argv[1]' cannot be extracted via extract()"
         end
@@ -73,6 +75,8 @@ alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 
 alias vim="nvim"
 alias vi="nvim"
+alias nedit="nvim ~/dotfiles/nvim/"
+
 
 alias ll="eza -l"
 alias l="eza -l"
@@ -87,13 +91,13 @@ alias t='sesh connect $(sesh list -c | fzf --height 40% --border)'
 end
 
 # pnpm
-set -gx PNPM_HOME "/home/mm-2103/.local/share/pnpm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 
-set -gx PATH "/home/mm-2103/.local/bin" "/home/mm-2103/go/bin" "/home/mm-2103/.composer/vendor/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
