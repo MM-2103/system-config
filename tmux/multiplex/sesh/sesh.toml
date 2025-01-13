@@ -10,8 +10,9 @@ name = "Work"
 path = "~/projects/work"
 
 [[session]]
-name = "Learning"
-path = "~/learning"
+name = "Nvim Config"
+path = "~/dotfiles/nvim"
+startup_command = "vim"
 
 [[session]]
 name = "Hermes Updates"
