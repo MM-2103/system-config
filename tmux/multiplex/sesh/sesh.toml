@@ -17,3 +17,7 @@ startup_command = "vim"
 [[session]]
 name = "Hermes Updates"
 path = "~/projects/school/cerberos-hermes-updates"
+
+[[session]]
+name = "Home"
+path = "~/"
