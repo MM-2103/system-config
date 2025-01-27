@@ -1,5 +1,6 @@
-font-family = "Iosevka Nerd Font Mono"
+font-family = "IosevkaTerm Nerd Font Mono"
 background-blur-radius = 10
 window-decoration = false
 
-config-file = "./theme"
+#config-file = "./theme"
+theme = dark:GruvboxDark,light:GruvboxLight
