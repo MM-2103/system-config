@@ -15,5 +15,23 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+    require('mini.move').setup()
+    require('mini.statusline').setup {
+      content = {
+        -- Content for active window
+        active = nil,
+        -- Content for inactive window(s)
+        inactive = nil,
+      },
+
+      -- Whether to use icons by default
+      use_icons = true,
+
+      -- Whether to set Vim's settings for statusline (make it always shown)
+      set_vim_settings = true,
+    }
+    require('mini.notify').setup()
+    require('mini.icons').setup()
+    require('mini.pairs').setup()
   end,
 }
