@@ -1,5 +1,8 @@
 font-family = "IosevkaTerm Nerd Font Mono"
+font-feature = +liga
+cursor-style = block
 background-blur-radius = 10
+mouse-hide-while-typing = true
 window-decoration = false
 
 #config-file = "./theme"
