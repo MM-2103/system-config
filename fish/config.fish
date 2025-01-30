@@ -63,6 +63,7 @@ abbr --add nixedit "sudoe nvim /etc/nixos/configuration.nix"
 abbr --add art "php artisan"
 abbr --add arts "php artisan serve"
 abbr --add artg "php artisan | grep"
+abbr --add artt "php artisan test"
 
 # Aliases
 alias sudo="sudo "
