@@ -23,12 +23,10 @@ return {
         -- Content for inactive window(s)
         inactive = nil,
       },
-
       -- Whether to use icons by default
       use_icons = true,
-
       -- Whether to set Vim's settings for statusline (make it always shown)
-      set_vim_settings = true,
+      set_vim_settings = false,
     }
     require('mini.notify').setup()
     require('mini.icons').setup()
