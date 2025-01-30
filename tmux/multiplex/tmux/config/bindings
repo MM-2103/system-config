@@ -45,5 +45,11 @@ bind-key -n C-S-Down resize-pane -D 5
 bind-key -n C-S-Left resize-pane -L 5
 bind-key -n C-S-Right resize-pane -R 5
 
+# LazyGit
+bind-key g display-popup -w "90%" -h "90%" -d "#{pane_current_path}" -E "lazygit"
+
+# LazyDocker
+bind-key d display-popup -w "90%" -h "90%" -E "lazydocker"
+
 # Unbind old 'resurrect-save' key to prevent default layout overwrite with resurrect
 unbind C-s
