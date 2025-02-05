@@ -3,41 +3,17 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
-    zen = {
-      enter = true,
-      fixbuf = false,
-      minimal = false,
-      width = 120,
-      height = 0,
-      backdrop = { transparent = true, blend = 40 },
-      keys = { q = false },
-      wo = {
-        winhighlight = 'NormalFloat:Normal',
-      },
-    },
-    scratch = {
-
-      keys = {
-        {
-          '<leader>.',
-          function()
-            Snacks.scratch()
-          end,
-          desc = 'Toggle Scratch Buffer',
-        },
-        {
-          '<leader>S',
-          function()
-            Snacks.scratch.select()
-          end,
-          desc = 'Select Scratch Buffer',
-        },
-      },
-    },
-
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    -- explorer = {
+    --   replace_netrw = true,
+    -- },
+    -- picker = {
+    --   sources = {
+    --     explorer = {
+    --       -- your explorer picker configuration comes here
+    --       -- or leave it empty to use the default settings
+    --     },
+    --   },
+    -- },
     bigfile = {
       enabled = true,
       notify = true, -- show notification when big file detected
@@ -231,9 +207,6 @@ return {
 
         -- Create some toggle mappings
         Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>ur'
-        Snacks.toggle.line_number():map '<leader>ul'
-        Snacks.toggle.treesitter():map '<leader>uT'
-        Snacks.toggle.inlay_hints():map '<leader>uh'
       end,
     })
   end,
