@@ -3,7 +3,8 @@ font-feature = +liga
 cursor-style = block
 background-blur-radius = 10
 mouse-hide-while-typing = true
-window-decoration = false
+confirm-close-surface = false
+theme = dark:GruvboxDark,light:GruvboxLight
 
 #config-file = "./theme"
-theme = dark:GruvboxDark,light:GruvboxLight
+#custom-shader = /home/mm-2103/git-repos/ghostty-shaders/matrix-hallway.glsl
