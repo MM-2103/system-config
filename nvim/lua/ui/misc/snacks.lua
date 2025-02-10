@@ -111,7 +111,7 @@ return {
       sections = {
         {
           section = 'terminal',
-          cmd = 'chafa $HOME/Pictures/Saved/Flag_of_Syria.svg.png --format symbols --symbols vhalf --stretch; sleep .1',
+          cmd = 'chafa $HOME/Pictures/Profile-Pics/berserk-purple.png --format symbols --symbols all --stretch; sleep .1',
           height = 17,
           padding = 1,
         },

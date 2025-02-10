@@ -16,18 +16,16 @@ return {
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
     require('mini.move').setup()
-    require('mini.statusline').setup {
-      content = {
-        -- Content for active window
-        active = nil,
-        -- Content for inactive window(s)
-        inactive = nil,
-      },
-      -- Whether to use icons by default
-      use_icons = true,
-      -- Whether to set Vim's settings for statusline (make it always shown)
-      set_vim_settings = false,
-    }
+
+    -- Statusline
+    local statusline = require 'mini.statusline'
+    statusline.setup { use_icons = vim.g.have_nerd_font }
+
+    ---@diagnostic disable-next-line: duplicate-set-field
+    statusline.section_location = function()
+      return '%2l:%-2v'
+    end
+
     require('mini.notify').setup()
     require('mini.icons').setup()
     require('mini.pairs').setup()
