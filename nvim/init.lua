@@ -58,10 +58,10 @@ require('lazy').setup({
   { import = 'coding.git' },
   { import = 'coding.lsp' },
   { import = 'coding.search' },
-  { import = 'coding.test' },
   { import = 'coding.todo' },
 
   { import = 'ui.filetree' },
+  { import = 'ui.snacks' },
   { import = 'ui.misc' },
   { import = 'ui.notifications' },
   { import = 'ui.themes' },
