@@ -4,8 +4,21 @@ cursor-style = block
 background-blur-radius = 10
 mouse-hide-while-typing = true
 confirm-close-surface = false
+
+##################
+## ColorSchemes ##
+##################
+
+# Gruvbox
 #theme = dark:GruvboxDark,light:GruvboxLight
-theme = dark:catppuccin-mocha,light:GruvboxLight
+
+# Catppucin
+#theme = dark:catppuccin-mocha,light:catppuccin-latte
+
+# RosePine
+theme = dark:rose-pine,light:rose-pine-dawn
 
 #config-file = "./theme"
-#custom-shader = /home/mm-2103/git-repos/ghostty-shaders/matrix-hallway.glsl
+
+# Shaders
+# custom-shader = ~/git-repos/ghostty-shaders/bloom.glsl
