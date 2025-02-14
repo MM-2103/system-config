@@ -79,9 +79,9 @@ alias vi="nvim"
 alias nedit="nvim ~/dotfiles/nvim/"
 
 
-alias ll="eza -l"
-alias l="eza -l"
-alias ls="eza"
+alias ll="eza -l --icons"
+alias l="eza -l --icons"
+alias ls="eza --icons"
 
 alias cat="bat"
 
