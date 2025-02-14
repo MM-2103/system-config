@@ -7,6 +7,8 @@ return {
       prompt = ' ',
       sources = {
         explorer = {
+          hidden = true,
+          ignored = true,
           layout = {
             auto_hide = { 'input' },
           },

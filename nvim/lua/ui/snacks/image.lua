@@ -3,7 +3,7 @@ return {
   ---@type snacks.Config
   opts = {
     image = {
-      force = false, -- try displaying the image, even if the terminal does not support it
+      force = true, -- try displaying the image, even if the terminal does not support it
       wo = {
         wrap = false,
         number = false,
