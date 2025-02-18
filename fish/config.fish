@@ -1,6 +1,5 @@
 if status is-interactive
 
-end
 # Functions
 	
 ## Make all dots into cd ../
@@ -49,57 +48,58 @@ function extract
     end
 end
 
-# Change prompt color in SSH
-if set -q SSH_TTY
-    set -g fish_color_host brred
-
 function rmrf
     if not set -q argv[1]
-        echo "Usage: rmrf_prompt <directory>"
+        echo "Usage: rmrf <directory> [directory...]"
         return 1
     end
 
-    set directory $argv[1]
+    set -l delete_all false
 
-    if test -n (ls -A $directory)
-        echo "Directory $directory is not empty."
-        echo ""
-        read -P "Are you sure you want to delete $directory? (y/n): " response
-        echo ""
-
-        switch $response
-            case 'y' 'Y'
-                rm -rf $directory
-                echo "Deleted $directory"
-            case '*'
-                echo "Deletion canceled"
+    for directory in $argv
+        if not test -e "$directory"
+            echo "Error: '$directory' does not exist"
+            continue
         end
-    else
-        rm -rf $directory
-        echo "Deleted $directory"
+
+        # Use fd to check if directory has contents (including hidden files)
+        if test -n (fd --hidden --no-ignore --min-depth 1 --max-depth 1 . "$directory" -1)
+            if test "$delete_all" = true
+                rm -rf "$directory"
+                echo "Deleted '$directory'"
+            else
+                echo "Directory '$directory' is not empty"
+                read -P "Delete '$directory'? (y/n/a): " -l response
+                switch (string lower $response)
+                    case y
+                        rm -rf "$directory"
+                        echo "Deleted '$directory'"
+                    case a
+                        rm -rf "$directory"
+                        echo "Deleted '$directory'"
+                        set delete_all true
+                    case '*'
+                        echo "Skipped '$directory'"
+                end
+            end
+        else
+            rm -rf "$directory"
+            echo "Deleted '$directory'"
+        end
     end
 end
 
 function switchphp
         if test -f /usr/bin/php
             sudo rm /usr/bin/php
-        end
-        if test -d /etc/php
             sudo rm -rf /etc/php
-        end
-        if test -d /usr/lib/modules/php
-            sudo rm -rf /usr/lib/modules/php
-        end
-        if test -d /usr/lib/php/modules
             sudo rm -rf /usr/lib/php/modules
         end
 
-        # Create new symlinks
         sudo ln -s /usr/bin/php$argv[1] /usr/bin/php
         sudo ln -s /etc/php$argv[1] /etc/php
-        sudo ln -s /usr/lib/php$argv[1]/modules/ /usr/lib/php/modules
+        sudo ln -s /usr/lib/php$argv[1] /usr/lib/php
 end
-
 
 # Abbreviations
 abbr --add dotdot --regex '^\.\.+$' --function multicd
