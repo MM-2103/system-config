@@ -48,10 +48,57 @@ function extract
     end
 end
 
-## Change prompt color in SSH
+# Change prompt color in SSH
 if set -q SSH_TTY
-  set -g fish_color_host brred
+    set -g fish_color_host brred
+
+function rmrf
+    if not set -q argv[1]
+        echo "Usage: rmrf_prompt <directory>"
+        return 1
+    end
+
+    set directory $argv[1]
+
+    if test -n (ls -A $directory)
+        echo "Directory $directory is not empty."
+        echo ""
+        read -P "Are you sure you want to delete $directory? (y/n): " response
+        echo ""
+
+        switch $response
+            case 'y' 'Y'
+                rm -rf $directory
+                echo "Deleted $directory"
+            case '*'
+                echo "Deletion canceled"
+        end
+    else
+        rm -rf $directory
+        echo "Deleted $directory"
+    end
 end
+
+function switchphp
+        if test -f /usr/bin/php
+            sudo rm /usr/bin/php
+        end
+        if test -d /etc/php
+            sudo rm -rf /etc/php
+        end
+        if test -d /usr/lib/modules/php
+            sudo rm -rf /usr/lib/modules/php
+        end
+        if test -d /usr/lib/php/modules
+            sudo rm -rf /usr/lib/php/modules
+        end
+
+        # Create new symlinks
+        sudo ln -s /usr/bin/php$argv[1] /usr/bin/php
+        sudo ln -s /etc/php$argv[1] /etc/php
+        sudo ln -s /usr/lib/php$argv[1]/modules/ /usr/lib/php/modules
+end
+
 
 # Abbreviations
 abbr --add dotdot --regex '^\.\.+$' --function multicd
@@ -86,7 +133,6 @@ alias ls="eza --icons"
 alias cat="bat"
 
 alias dotfiles="cd ~/dotfiles && vim"
-
 
 alias t="sesh connect (sesh list | fzf-tmux -p 55%,60% \
     --no-sort --border-label ' sesh ' --prompt '⚡  ' \
