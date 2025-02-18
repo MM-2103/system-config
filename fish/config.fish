@@ -1,5 +1,6 @@
 if status is-interactive
 
+end
 # Functions
 	
 ## Make all dots into cd ../
