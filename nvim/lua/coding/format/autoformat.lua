@@ -14,23 +14,44 @@ return { -- Autoformat
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
-      -- Disable "format_on_save lsp_fallback" for languages that don't
-      -- have a well standardized coding style. You can add additional
-      -- languages here or re-enable it for the disabled ones.
       local disable_filetypes = { c = true, cpp = true }
       return {
-        timeout_ms = 500,
+        timeout_ms = 3000,
+        async = false, -- not recommended to change
+        quiet = false, -- not recommended to change
         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
       }
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      -- Conform can also run multiple formatters sequentially
-      -- python = { "isort", "black" },
-      --
-      -- You can use a sub-list to tell conform to run *until* a formatter
-      -- is found.
-      -- javascript = { { "prettierd", "prettier" } },
+      sh = { 'shfmt' },
+      php = { 'custom_pint' }, -- Use a custom formatter name instead of 'pint'
+      blade = { 'blade-formatter', 'rustywind' },
+      python = { 'black' },
+      rust = { 'rustfmt' },
+    },
+    -- Define custom formatters
+    formatters = {
+      custom_pint = {
+        command = 'pint',
+        args = function()
+          -- Default config path (e.g., in your home directory)
+          local default_config = vim.fn.expand '/home/mm-2103/.config/pint/pint.json'
+          -- Project-specific config path
+          local project_config = vim.fn.getcwd() .. '/pint.json'
+
+          -- Check if project_config exists
+          if vim.fn.filereadable(project_config) == 1 then
+            -- Use project-specific pint.json if it exists
+            return { vim.fn.fnameescape(project_config) }
+          else
+            -- Fallback to default config
+            return { '--config', vim.fn.fnameescape(default_config) }
+          end
+        end,
+        -- Ensure pint processes the current buffer
+        stdin = false,
+      },
     },
   },
 }
