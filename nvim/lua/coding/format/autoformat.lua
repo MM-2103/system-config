@@ -14,6 +14,9 @@ return { -- Autoformat
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
+      -- Disable "format_on_save lsp_fallback" for languages that don't
+      -- have a well standardized coding style. You can add additional
+      -- languages here or re-enable it for the disabled ones.
       local disable_filetypes = { c = true, cpp = true }
       return {
         timeout_ms = 3000,
@@ -25,32 +28,49 @@ return { -- Autoformat
     formatters_by_ft = {
       lua = { 'stylua' },
       sh = { 'shfmt' },
-      php = { 'custom_pint' }, -- Use a custom formatter name instead of 'pint'
+      php = { 'pint' },
       blade = { 'blade-formatter', 'rustywind' },
       python = { 'black' },
       rust = { 'rustfmt' },
     },
-    -- Define custom formatters
     formatters = {
-      custom_pint = {
+      pint = {
         command = 'pint',
-        args = function()
-          -- Default config path (e.g., in your home directory)
-          local default_config = vim.fn.expand '/home/mm-2103/.config/pint/pint.json'
-          -- Project-specific config path
-          local project_config = vim.fn.getcwd() .. '/pint.json'
+        stdin = false, -- Important: Pint operates on files directly
+        args = function(self, ctx)
+          local filename = ctx.filename or vim.api.nvim_buf_get_name(ctx.buf)
 
-          -- Check if project_config exists
-          if vim.fn.filereadable(project_config) == 1 then
-            -- Use project-specific pint.json if it exists
-            return { vim.fn.fnameescape(project_config) }
-          else
-            -- Fallback to default config
-            return { '--config', vim.fn.fnameescape(default_config) }
+          -- Handle unsaved buffers
+          if filename == '' then
+            vim.notify('Please save the file before formatting', vim.log.levels.WARN)
+            return {}
           end
+
+          -- Find project-specific config
+          local function find_pint_config()
+            local dir = vim.fs.dirname(filename)
+            return vim.fs.find('pint.json', {
+              path = dir,
+              upward = true,
+              stop = vim.loop.os_homedir(),
+            })[1]
+          end
+
+          local project_config = find_pint_config()
+          local default_config = vim.fn.expand '~/.config/pint/pint.json' -- Your default
+
+          -- Build arguments
+          local args = { filename }
+          if project_config then
+            table.insert(args, 1, '--config')
+            table.insert(args, 2, project_config)
+          else
+            table.insert(args, 1, '--config')
+            table.insert(args, 2, default_config)
+          end
+
+          return args
         end,
-        -- Ensure pint processes the current buffer
-        stdin = false,
       },
     },
   },
