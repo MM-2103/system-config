@@ -2,18 +2,15 @@
 # Switch php and unlink the "default" version.
 # -------------------------------------------------------------------
 function switchphp() {
-    if [[ $OSTYPE == "linux-gnu" ]]; then
        # Custom Linux Aliases
        if [[ -f /usr/bin/php ]]; then
-           sudo rm /usr/bin/php
+            sudo rm -rf /usr/bin/php
+            sudo rm -rf /etc/php
+            sudo rm -rf /usr/lib/modules/php
        fi
-
        sudo ln -s /usr/bin/php$1 /usr/bin/php
-
-    elif [[ $OSTYPE == "darwin"* ]]; then
-        # Custom MAC OSX Aliases
-        brew unlink php && brew link --force --overwrite php@$1
-    fi
+       sudo ln -s /etc/php$1 /etc/php
+       sudo ln -s /usr/lib/modules/php$1 /usr/lib/modules/php
 }
 
 # -------------------------------------------------------------------
