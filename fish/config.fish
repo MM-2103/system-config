@@ -1,3 +1,4 @@
+# Path
 set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" $PATH
 
 # Zoxide
