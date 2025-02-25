@@ -10,13 +10,19 @@ confirm-close-surface = false
 ##################
 
 # Gruvbox
-#theme = dark:GruvboxDark,light:GruvboxLight
+theme = dark:GruvboxDark,light:GruvboxLight
 
 # Catppucin
 #theme = dark:catppuccin-mocha,light:catppuccin-latte
 
 # RosePine
-theme = dark:Adwaita Dark,light:rose-pine-dawn
+# theme = dark:rose-pine,light:rose-pine-dawn
+
+# Dogspresso
+# theme = dark:Dogspresso-Ristretto,light:Dogspresso-Con-Panna
+
+# Monokai
+# theme = dark:Monokai Pro,light:Monokai Pro Light Sun
 
 #config-file = "./theme"
 
