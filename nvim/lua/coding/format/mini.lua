@@ -26,7 +26,7 @@ return {
       return '%2l:%-2v'
     end
 
-    require('mini.notify').setup()
+    --    require('mini.notify').setup()
     require('mini.icons').setup()
     require('mini.pairs').setup()
   end,
