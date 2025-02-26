@@ -1,5 +1,7 @@
 alias cat="bat"
 
+alias reload="exec fish"
+
 alias dotfiles="cd ~/dotfiles && vim"
 
 alias t="sesh connect (sesh list | fzf-tmux -p 55%,60% \
