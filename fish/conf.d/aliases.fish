@@ -28,3 +28,7 @@ alias protontricks="flatpak run com.github.Matoking.protontricks"
 alias protontricks-launch="flatpak run --command=protontricks-launch com.github.Matoking.protontricks"
 
 alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
+
+alias zzz="systemctl suspend"
+
+# alias ping="nping-rs"
