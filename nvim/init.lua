@@ -54,6 +54,7 @@ require('lazy').setup({
     },
   },
   { import = 'coding.cmp' },
+  { import = 'coding.ai' },
   { import = 'coding.format' },
   { import = 'coding.git' },
   { import = 'coding.lsp' },

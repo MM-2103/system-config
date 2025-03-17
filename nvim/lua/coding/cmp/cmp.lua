@@ -1,4 +1,16 @@
 return {
+  -- Copilot cmp
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+  },
+
   -- Auto-Completion
   {
     'hrsh7th/nvim-cmp',
@@ -105,6 +117,8 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
+            require('copilot_cmp.comparators').prioritize,
+
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
             -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
@@ -119,6 +133,8 @@ return {
           },
         },
         sources = {
+          -- Copilot Source
+          { name = 'copilot', group_index = 2 },
           -- Other Sources
           { name = 'nvim_lsp', group_index = 2 },
           { name = 'path', group_index = 2 },
