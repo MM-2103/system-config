@@ -128,6 +128,18 @@ return {
         --
         -- ]],
       },
+      -- sections = {
+      --   {
+      --     section = 'terminal',
+      --     cmd = 'colorscript -r',
+      --     height = 17,
+      --     padding = 1,
+      --   },
+      --   {
+      --     { section = 'keys', gap = 1, padding = 1 },
+      --     { section = 'startup' },
+      --   },
+      -- },
     },
   },
 }
