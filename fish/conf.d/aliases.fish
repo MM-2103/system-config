@@ -31,4 +31,7 @@ alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 
 alias zzz="systemctl suspend"
 
-# alias ping="nping-rs"
+alias fedora="distrobox enter fedora"
+
+alias ytv="yt-dlp -P "~/Videos/YT" -f bestvideo --add-metadata -o '%(title)s.%(ext)s'"
+alias ytm="yt-dlp -P "~/Music" --throttled-rate 100K -f bestaudio --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"

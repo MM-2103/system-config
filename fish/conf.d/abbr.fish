@@ -6,6 +6,8 @@ abbr --add :q exit
 abbr --add nixupdate "sudo nixos-rebuild switch --flake /etc/nixos#default"
 abbr --add nixedit "sudoe nvim /etc/nixos/configuration.nix"
 
+abbr --add weather "curl wttr.in"
+
 # PHP
 # abbr --add art "php artisan"
 # abbr --add arts "php artisan serve"
