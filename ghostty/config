@@ -1,7 +1,6 @@
 font-family = "IosevkaTerm Nerd Font Mono"
 font-feature = +liga
 cursor-style = block
-background-blur-radius = 10
 mouse-hide-while-typing = true
 confirm-close-surface = false
 
@@ -12,19 +11,26 @@ confirm-close-surface = false
 # Gruvbox
 theme = dark:GruvboxDark,light:GruvboxLight
 
+# Solarized
+#theme = dark:Builtin Solarized Dark, light:Builtin Solarized Light
+
 # Catppucin
 #theme = dark:catppuccin-mocha,light:catppuccin-latte
 
 # RosePine
 # theme = dark:rose-pine,light:rose-pine-dawn
 
-# Dogspresso
-# theme = dark:Dogspresso-Ristretto,light:Dogspresso-Con-Panna
-
 # Monokai
 # theme = dark:Monokai Pro,light:Monokai Pro Light Sun
 
+# Moonfly
 #config-file = "./theme"
+
+######################
+## End ColorSchemes ##
+######################
+
+
 
 # Shaders
 # custom-shader = ~/git-repos/ghostty-shaders/bloom.glsl
