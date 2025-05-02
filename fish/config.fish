@@ -17,6 +17,8 @@ set -x MANPAGER "nvim +Man!"
 #set TERM "xterm-256color"                         # Sets the terminal type
 set EDITOR "nvim''"                               # $EDITOR use Emacs in terminal
 
+set -gx OPENROUTER_API_KEY "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"
+
 if status is-interactive
     colorscript random
 end

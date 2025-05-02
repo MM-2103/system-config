@@ -58,7 +58,6 @@ require('lazy').setup({
   { import = 'coding.format' },
   { import = 'coding.git' },
   { import = 'coding.lsp' },
-  { import = 'coding.search' },
   { import = 'coding.todo' },
 
   { import = 'ui.filetree' },

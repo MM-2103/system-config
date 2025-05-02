@@ -156,13 +156,6 @@ set('n', '<leader>gt', function()
 end, { desc = '[G]oto [T]ype Definitions' })
 
 -- =====================================================================
--- Todo Keymaps
--- =====================================================================
-set('n', '<leader>ct', function()
-  Snacks.picker.todo_comments()
-end, { desc = '[C]heck [T]odo' })
-
--- =====================================================================
 -- Test Keymaps
 -- =====================================================================
 set('n', '<leader>tn', function()
@@ -193,6 +186,15 @@ set('n', '<leader>sc', function()
 end, { desc = '[S]earch [C]ommands' })
 
 -- =====================================================================
+-- Todo, Trouble
+-- =====================================================================
+set('n', '<leader>ct', function()
+  Snacks.picker.todo_comments()
+end, { desc = '[C]heck [T]odo' })
+
+set('n', '<leader>dt', '<cmd>Trouble diagnostics toggle<cr>', { desc = '[D]iagnostics [T]rouble)' })
+
+-- =====================================================================
 -- Diagnostics Keymaps
 -- =====================================================================
 set('n', '<leader>sd', function()
@@ -203,11 +205,11 @@ set('n', '<leader>sD', function()
   Snacks.picker.diagnostics_buffer()
 end, { desc = '[S]earch Buffer [D]iagnostics' })
 
-set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-set('n', '<leader>em', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
-set('n', '<leader>sr', function()
-  Snacks.picker.registers()
-end, { desc = '[S]earch [R]egisters' })
+-- set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+-- set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+-- set('n', '<leader>em', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+-- set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+--
+-- set('n', '<leader>sr', function()
+--   Snacks.picker.registers()
+-- end, { desc = '[S]earch [R]egisters' })

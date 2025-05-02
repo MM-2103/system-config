@@ -9,8 +9,8 @@ confirm-close-surface = false
 ##################
 
 # Gruvbox
-theme = dark:GruvboxDark,light:GruvboxLight
-
+#theme = dark:GruvboxDark,light:GruvboxLight
+theme = GruvboxDark
 # Solarized
 #theme = dark:Builtin Solarized Dark, light:Builtin Solarized Light
 

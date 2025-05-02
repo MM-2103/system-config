@@ -22,6 +22,7 @@ alias ls="eza --icons"
 alias vim="nvim"
 alias vi="nvim"
 alias nedit="nvim ~/dotfiles/nvim/"
+alias code="nvim"
 
 
 alias protontricks="flatpak run com.github.Matoking.protontricks"

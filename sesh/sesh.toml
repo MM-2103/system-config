@@ -21,3 +21,8 @@ path = "~/projects/school/cerberos-hermes-updates"
 [[session]]
 name = "Home"
 path = "~/"
+
+[[session]]
+name = "New Project"
+path = "~/projects/personal"
+startup_command = "new_project"
