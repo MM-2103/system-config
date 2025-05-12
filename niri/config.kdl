@@ -287,6 +287,12 @@ layout {
 // See the binds section below for more spawn examples.
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
+spawn-at-startup "swayosd-server"
+spawn-at-startup "hyprpaper"
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
+spawn-at-startup "cb"
+spawn-at-startup "nm-applet"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -308,10 +314,10 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
-    off
+    //off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
+    slowdown 0.5
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -372,7 +378,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T { spawn "ghostty"; }
+    Mod+Return { spawn "ghostty"; }
     Mod+P { spawn "fuzzel"; }
     Super+Alt+L { spawn "swaylock"; }
 
@@ -382,9 +388,9 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-i" "5"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-d" "5"; }
+    XF86AudioMute        allow-when-locked=true { spawn "pamixer" "-t"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+Shift+C { close-window; }
