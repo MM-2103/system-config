@@ -295,6 +295,7 @@ spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "blueman-applet"
+spawn-at-startup "swayidle" "-w" "timeout" "swaylock -f" "300" "before-sleep" "swaylock -f"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -621,7 +622,7 @@ binds {
     Ctrl+Alt+Delete { quit; }
 
     // Lock the screen.
-    Mod+Shift+X { spawn "hyprlock"; }
+    Mod+Shift+X { spawn "swaylock"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.

@@ -37,22 +37,43 @@
     },
 
     "battery": {
-        "format": "bat {capacity}%",
-        "interval": 5,
+        "format": " {icon} ",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""],
         "states": {
             "warning": 20,
             "critical": 10
         },
-        "tooltip": false
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format": " {ifname} ",
+        "format-wifi": " {essid}  ",
+        "format-ethernet": "",
+        "format-disconnected": " Disconnected ⚠ ",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)  ",
+        "tooltip-format-ethernet": " {ifname} ({ipaddr}/{cidr})   ",
+        "format-linked": " {ifname} (No IP)   ",
+        "on-click": "nm-connection-editor"
     },
 
     "pulseaudio": {
-        "scroll-step": 5,
-        "max-volume": 150,
-        "format": "vol {volume}%",
-        "format-bluetooth": "vol {volume}%",
-        "nospacing": 1,
-        "on-click": "pavucontrol",
-        "tooltip": false
-    }
+        "format": " {icon} {volume}% ",
+        "format-bluetooth": " {volume}% {icon} {format_source} ",
+        "format-bluetooth-muted": "  {icon} {format_source} ",
+        "format-muted": "",
+        "format-source-muted": "  ",
+        "format-icons": {
+            "headphone": "  ",
+            "hands-free": "  ",
+            "headset": "  ",
+            "phone": "  ",
+            "portable": "  ",
+            "car": "  ",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
 }
