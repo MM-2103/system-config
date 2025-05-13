@@ -21,6 +21,9 @@ if status is-interactive
     colorscript random
 end
 
+# Direnv
+direnv hook fish | source
+
 # Starship
 starship init fish | source
 
