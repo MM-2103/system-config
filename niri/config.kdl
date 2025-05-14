@@ -139,7 +139,7 @@ output "HDMI-A-1" {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 10
+    gaps 5
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -286,7 +286,6 @@ layout {
 // See the binds section below for more spawn examples.
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
-spawn-at-startup "swayosd-server"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "waybar"
 spawn-at-startup "dunst"
@@ -295,7 +294,7 @@ spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "blueman-applet"
-spawn-at-startup "swayidle" "-w" "timeout" "swaylock -f" "300" "before-sleep" "swaylock -f"
+spawn-at-startup "./scripts/lock_sleep.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
