@@ -1,2 +1,3 @@
 ./tmux/plugins/*
 .aider*
+./fish/conf.d/env.fish
