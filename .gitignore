@@ -1,4 +1,5 @@
 tmux/plugins/*
 .aider*
-fish/conf.d/env.fish
+fish/conf.d/env.*
 nushell/history.*
+opencode/.opencode

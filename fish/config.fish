@@ -21,6 +21,10 @@ if status is-interactive
     colorscript random
 end
 
+if test -f ~/dotfiles/fish/conf.d/env.fish
+    source ~/dotfiles/fish/conf.d/env.fish
+end
+
 # Direnv
 direnv hook fish | source
 
