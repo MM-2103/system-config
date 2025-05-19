@@ -1,3 +1,4 @@
-./tmux/plugins/*
+tmux/plugins/*
 .aider*
-./fish/conf.d/env.fish
+fish/conf.d/env.fish
+nushell/history.*
