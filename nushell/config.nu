@@ -17,5 +17,6 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 $env.config.buffer_editor = "nvim"
+$env.config.show_banner = false
 
 source ~/.zoxide.nu
