@@ -61,6 +61,13 @@ input {
     // focus-follows-mouse max-scroll-amount="0%"
 }
 
+// Disable the hot corners.
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 environment {
     DISPLAY ":1"
 }
@@ -294,7 +301,7 @@ spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "blueman-applet"
-spawn-at-startup "./scripts/lock_sleep.sh"
+spawn-at-startup "hypridle"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -388,7 +395,6 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return { spawn "ghostty"; }
     Mod+P { spawn "fuzzel"; }
-    Super+Alt+L { spawn "swaylock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
@@ -594,6 +600,9 @@ binds {
     // rather than stacked on top of each other.
     Mod+W { toggle-column-tabbed-display; }
 
+
+    Mod+Shift+W { toggle-overview; }
+
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
     // a matching layout switch hotkey configured in xkb options above.
@@ -621,7 +630,7 @@ binds {
     Ctrl+Alt+Delete { quit; }
 
     // Lock the screen.
-    Mod+Shift+X { spawn "swaylock"; }
+    Mod+Shift+X { spawn "hyprlock"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
