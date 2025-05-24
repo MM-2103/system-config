@@ -1,0 +1,1 @@
+set -gx OPENROUTER_API_KEY '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'
