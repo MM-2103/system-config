@@ -636,3 +636,20 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+clipboard {
+    disable-primary
+}
+
+
+cursor {
+    xcursor-theme "breeze_cursors"
+    xcursor-size 25
+
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
