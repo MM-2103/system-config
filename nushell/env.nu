@@ -16,4 +16,7 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+
 zoxide init nushell | save -f ~/.zoxide.nu

@@ -3,6 +3,7 @@ font-feature = +liga
 cursor-style = block
 mouse-hide-while-typing = true
 confirm-close-surface = false
+# background-opacity = 0.8
 
 ##################
 ## ColorSchemes ##
