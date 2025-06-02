@@ -1,11 +1,11 @@
 # Path
-set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" "/nix/store/g7yc135wzgh6abfwh074gd0bz6i5xzkh-nix-3.6.1/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
 
 # fnm
-fnm env --use-on-cd --shell fish | source
+# fnm env --use-on-cd --shell fish | source
 
 # Phpenv
 # status --is-interactive; and source (phpenv init -|psub)

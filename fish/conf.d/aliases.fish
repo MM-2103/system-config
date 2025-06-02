@@ -23,6 +23,7 @@ alias vim="nvim"
 alias vi="nvim"
 alias nedit="nvim ~/dotfiles/nvim/"
 alias code="nvim"
+alias edit="nvim"
 
 
 alias protontricks="flatpak run com.github.Matoking.protontricks"
