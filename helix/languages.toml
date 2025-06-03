@@ -1,0 +1,7 @@
+[[language]]
+name = "php"
+roots = ["composer.json", "index.php"]
+file-types = ["php", "blade"]
+formatter = { command = "pint", args = ["--silent", "--no-interaction", "--config=~/.config/pint/pint.json"]}
+auto-format = true
+diagnostic-severity = "error"
