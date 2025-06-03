@@ -194,6 +194,10 @@ end, { desc = '[C]heck [T]odo' })
 
 set('n', '<leader>dt', '<cmd>Trouble diagnostics toggle<cr>', { desc = '[D]iagnostics [T]rouble)' })
 
+set('n', '<leader>td', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { silent = true, noremap = true })
+
 -- =====================================================================
 -- Diagnostics Keymaps
 -- =====================================================================
