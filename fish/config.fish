@@ -30,4 +30,3 @@ direnv hook fish | source
 
 # Starship
 starship init fish | source
-

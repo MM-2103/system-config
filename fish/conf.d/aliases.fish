@@ -25,8 +25,6 @@ alias nedit="nvim ~/dotfiles/nvim/"
 alias code="nvim"
 alias edit="nvim"
 
-alias hx="helix"
-
 alias protontricks="flatpak run com.github.Matoking.protontricks"
 alias protontricks-launch="flatpak run --command=protontricks-launch com.github.Matoking.protontricks"
 
