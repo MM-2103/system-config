@@ -1,6 +1,7 @@
-theme = "gruvbox"
+theme = "mygruvbox"
 
 [editor]
+evil = true
 line-number = "relative"
 mouse = false
 bufferline = "multiple"

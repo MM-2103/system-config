@@ -2,6 +2,10 @@
 name = "php"
 roots = ["composer.json", "index.php"]
 file-types = ["php", "blade"]
-formatter = { command = "pint", args = ["--silent", "--no-interaction", "--config=~/.config/pint/pint.json"]}
+formatter = { command = "php-cs-fixer", args = [
+    "fix",
+    "--using-cache=no",
+    "/dev/stdin",
+] }
 auto-format = true
 diagnostic-severity = "error"
