@@ -343,13 +343,29 @@ window-rule {
     default-column-width {}
 }
 
-// Open the Firefox picture-in-picture player as floating by default.
+// Open the Zen picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    // - host Zen (app-id is "Zen")
+    // - Flatpak Zen (app-id is "app.zen_browser.zen")
     match app-id=r#"zen$"# title="^Picture-in-Picture$"
-    open-floating true
+
+    open-on-output "eDP-1"
+    open-maximized true
+}
+
+// Open Steam and its games maximized
+window-rule {
+    match app-id=r#"steam$"#
+
+    open-maximized true
+}
+
+// Open Heroic and its games maximized
+window-rule {
+    match app-id=r#"heroic$"#
+
+    open-maximized true
 }
 
 window-rule {
