@@ -17,10 +17,6 @@ set -x MANPAGER "nvim +Man!"
 #set TERM "xterm-256color"                         # Sets the terminal type
 set EDITOR "nvim''"                               # $EDITOR use Emacs in terminal
 
-if status is-interactive
-    colorscript random
-end
-
 if test -f ~/dotfiles/fish/conf.d/env.fish
     source ~/dotfiles/fish/conf.d/env.fish
 end
