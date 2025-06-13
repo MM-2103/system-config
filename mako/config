@@ -1,0 +1,13 @@
+# Colors
+
+background-color=#282828
+text-color=#ebdbb2
+border-color=#928374
+progress-color=over #d79921
+
+font=Iosevka NFM 10
+
+default-timeout=5000
+
+[urgency=high]
+border-color=#cc241d
