@@ -28,7 +28,7 @@ input {
         // dwt
         // dwtp
         // drag-lock
-        natural-scroll
+        // natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "two-finger"
@@ -295,7 +295,7 @@ spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "waybar"
-spawn-at-startup "dunst"
+spawn-at-startup "mako"
 spawn-at-startup "cb"
 spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
