@@ -15,7 +15,7 @@ function update
 
     switch $distro_id
         case fedora
-            sudo dnf update
+            sudo dnf upgrade --refresh
         case arch
             paru
         case ubuntu debian

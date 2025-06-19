@@ -26,3 +26,6 @@ direnv hook fish | source
 
 # Starship
 starship init fish | source
+
+# opencode
+fish_add_path /home/mm-2103/.opencode/bin
