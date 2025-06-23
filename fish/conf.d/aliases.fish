@@ -32,9 +32,10 @@ alias nvidia-status="cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status"
 
 alias zzz="systemctl suspend"
 
-alias fedora="distrobox enter fedora"
-
+# Yt-dlp
 alias ytv="yt-dlp -P "~/Videos/YT" -f bestvideo --add-metadata -o '%(title)s.%(ext)s'"
 alias ytm="yt-dlp -P "~/Music" --throttled-rate 100K -f bestaudio --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"
 
+# Nix
 alias nixenv="echo 'use nix' > .envrc && direnv allow"
+alias hm-switch="home-manager switch --flake ~/.config/home-manager#mm-2103"
