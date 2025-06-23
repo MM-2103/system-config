@@ -36,3 +36,5 @@ alias fedora="distrobox enter fedora"
 
 alias ytv="yt-dlp -P "~/Videos/YT" -f bestvideo --add-metadata -o '%(title)s.%(ext)s'"
 alias ytm="yt-dlp -P "~/Music" --throttled-rate 100K -f bestaudio --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata -o '%(title)s.%(ext)s'"
+
+alias nixenv="echo 'use nix' > .envrc && direnv allow"
