@@ -4,3 +4,4 @@ fish/conf.d/env.*
 nushell/history.*
 opencode/.opencode
 fish/conf.d/env.fish
+tmux/plugins
