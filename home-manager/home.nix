@@ -1,7 +1,16 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
+  nixGL = {
+    vulkan.enable = true;
+    packages = pkgs.nixgl;
+    defaultWrapper = "mesa";
+    offloadWrapper = "nvidiaPrime";
+    installScripts = [ "mesa" "nvidiaPrime" ];
+  };
+
   nixpkgs.config.allowUnfree = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mm-2103";
@@ -36,6 +45,9 @@
     mako
     protonup-qt
     pandoc
+
+    # Packages that need OpenGL/Vulkan - wrapped automatically
+    (config.lib.nixGL.wrap zed-editor-fhs)
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
