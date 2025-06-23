@@ -1,3 +1,0 @@
-theme = "opencode"
-provider = "openrouter"
-model = "anthropic/claude-3.5-sonnet"
