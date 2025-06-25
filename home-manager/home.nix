@@ -28,6 +28,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    lazygit
     lazydocker
     ansible-language-server
     antares
@@ -45,6 +46,7 @@
     mako
     protonup-qt
     pandoc
+    atuin
 
     # Packages that need OpenGL/Vulkan - wrapped automatically
     (config.lib.nixGL.wrap zed-editor-fhs)
