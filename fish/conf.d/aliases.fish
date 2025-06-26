@@ -15,9 +15,10 @@ alias t="sesh connect (sesh list | fzf-tmux -p 55%,60% \
     --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
     --bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)')"
 
-alias ll="eza -l --icons"
+alias ll="eza -lah --icons --group-directories-first --git"
 alias l="eza -l --icons"
-alias ls="eza --icons"
+alias ls="eza --icons --group-directories-first"
+alias lt="eza --tree --icons"
 
 alias vim="nvim"
 alias vi="nvim"
