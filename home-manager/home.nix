@@ -47,6 +47,8 @@
     protonup-qt
     pandoc
     atuin
+    texliveSmall
+    sqlite
 
     # Packages that need OpenGL/Vulkan - wrapped automatically
     (config.lib.nixGL.wrap zed-editor-fhs)
@@ -106,5 +108,24 @@
     enable = true;
     userName = "mm-2103";
     userEmail = "mohsen.menem@protonmail.com";
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          default = [
+            "gtk"
+          ];
+          "org.freedesktop.impl.portal.Secret" = [
+            "kwalletd6"
+          ];
+        };
+      };
+    };
   };
 }
