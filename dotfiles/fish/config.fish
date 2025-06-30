@@ -4,19 +4,16 @@ set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HO
 # Zoxide
 zoxide init fish | source
 
-# fnm
-# fnm env --use-on-cd --shell fish | source
+# Vi mode
+fish_vi_key_bindings
 
-# Phpenv
-# status --is-interactive; and source (phpenv init -|psub)
-
-### "nvim" as manpager
+# Neovim as manpager
 set -x MANPAGER "nvim +Man!"
 
-### EXPORT ###
-#set TERM "xterm-256color"                         # Sets the terminal type
+# Default Editor
 set EDITOR "nvim''"                               # $EDITOR use Emacs in terminal
 
+# Export env variables
 if test -f ~/dotfiles/fish/conf.d/env.fish
     source ~/dotfiles/fish/conf.d/env.fish
 end
