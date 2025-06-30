@@ -38,6 +38,7 @@
     sqlite
     typora
     dust
+    tealdeer
 
     # Install Iosevka font
     # (nerdfonts.override { fonts = [ "Iosevka" ]; })
