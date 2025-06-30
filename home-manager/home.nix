@@ -5,28 +5,16 @@
     vulkan.enable = true;
     packages = pkgs.nixgl;
     defaultWrapper = "mesa";
-    offloadWrapper = "nvidiaPrime";
+    offloadWrapper = "nvidiaPrime";  
     installScripts = [ "mesa" "nvidiaPrime" ];
   };
 
   nixpkgs.config.allowUnfree = true;
 
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "mm-2103";
   home.homeDirectory = "/home/mm-2103";
+  home.stateVersion = "25.05";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
     lazygit
     lazydocker
@@ -51,107 +39,101 @@
     typora
     dust
 
+    # Install Iosevka font
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+
     # Packages that need OpenGL/Vulkan - wrapped automatically
-    #    (config.lib.nixGL.wrap zed-editor-fhs)
+    # (config.lib.nixGL.wrap zed-editor-fhs)
 
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-    "~/.config/alacritty".source = ~/dotfiles/alacritty;
+    # ~/.config/ destinations
+    ".config/alacritty".source = ../dotfiles/alacritty;
+    ".config/atuin".source = ../dotfiles/atuin;
+    ".config/awesome".source = ../dotfiles/awesome;
+    ".config/bspwm".source = ../dotfiles/bspwm;
+    ".config/dunst".source = ../dotfiles/dunst;
+    ".config/emacs".source = ../dotfiles/emacs;
+    ".config/eza".source = ../dotfiles/eza;
+    ".config/fastfetch".source = ../dotfiles/fastfetch;
+    ".config/fish".source = ../dotfiles/fish;
+    ".config/foot".source = ../dotfiles/foot;
+    ".config/fuzzel".source = ../dotfiles/fuzzel;
+    ".config/ghostty".source = ../dotfiles/ghostty;
+    ".config/helix".source = ../dotfiles/helix;
+    ".config/hypr".source = ../dotfiles/hypr;
+    ".config/i3".source = ../dotfiles/i3;
+    ".config/kitty".source = ../dotfiles/kitty;
+    ".config/lazygit".source = ../dotfiles/lazygit;
+    ".config/mako".source = ../dotfiles/mako;
+    ".config/niri".source = ../dotfiles/niri;
+    ".config/nix".source = ../dotfiles/nix;
+    ".config/nushell".source = ../dotfiles/nushell;
+    ".config/nvim".source = ../dotfiles/nvim;
+    ".config/picom".source = ../dotfiles/picom;
+    ".config/quickshell".source = ../dotfiles/quickshell;
+    ".config/river".source = ../dotfiles/river;
+    ".config/rofi".source = ../dotfiles/rofi;
+    ".config/sesh".source = ../dotfiles/sesh;
+    ".config/starship".source = ../dotfiles/starship;
+    ".config/swaylock".source = ../dotfiles/swaylock;
+    ".config/tmux".source = ../dotfiles/tmux;
+    ".config/uwsm".source = ../dotfiles/uwsm;
+    ".config/waybar".source = ../dotfiles/waybar;
+    ".config/wayfire".source = ../dotfiles/wayfire;
+    ".config/wezterm".source = ../dotfiles/wezterm;
+    ".config/wireplumber".source = ../dotfiles/wireplumber;
+    ".config/xmonad".source = ../dotfiles/xmonad;
+    ".config/zsh".source = ../dotfiles/zsh;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    # ~/ destinations (traditional locations)
+    ".tmux.conf".source = ../dotfiles/tmate/tmate.conf;  # If you want tmate config as tmux
+    
+    # Scripts and other files
+    # ".local/bin/dwm-autostart".source = ../dotfiles/dwm/autostart.sh;
+    # ".local/bin/gnome-startup".source = ../dotfiles/gnome/startup.sh;
+    # ".local/bin/plasma-autostart".source = ../dotfiles/plasma/autostart.sh;
+    # ".local/bin/i3-autostart".source = ../dotfiles/i3/autostart.sh;
+
+    # Distrobox images (if you want them accessible)
+    # ".local/share/distrobox-images".source = ../dotfiles/distrobox-images;
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/mm-2103/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   programs = {
-    # Let Home Manager install and manage itself.
-    home-manager = {
-      enable = true;
-    };
-    # Git
+    home-manager.enable = true;
+
     git = {
       enable = true;
       userName = "mm-2103";
       userEmail = "mohsen.menem@protonmail.com";
     };
-    # Starship
-    starship = {
-      enable = true;
-    };
-    # Direnv
+
+    starship.enable = true;
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
   };
 
-  fonts = {
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        monospace = [ "Iosevka Nerd Font Mono" ];
-      };
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "Iosevka Nerd Font Mono" ];
     };
   };
 
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-      config = {
-        common = {
-          default = [
-            "gtk"
-          ];
-          "org.freedesktop.impl.portal.Secret" = [
-            "kwalletd6"
-          ];
-        };
-      };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.Secret" = [ "kwalletd6" ];
     };
   };
 }

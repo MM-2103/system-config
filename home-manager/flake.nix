@@ -10,7 +10,7 @@
     nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixgl, ... }:
+  outputs = { nixpkgs, home-manager, nixgl, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -25,9 +25,7 @@
     {
       homeConfigurations."mm-2103" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ 
-          "${self}/home.nix"
-        ];
+        modules = [ ./home.nix ];
       };
     };
 }
