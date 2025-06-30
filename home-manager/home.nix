@@ -39,6 +39,8 @@
     typora
     dust
     tealdeer
+    fish
+    zoxide
 
     # Install Iosevka font
     # (nerdfonts.override { fonts = [ "Iosevka" ]; })
