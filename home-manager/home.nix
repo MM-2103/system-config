@@ -33,7 +33,6 @@
     ansible-language-server
     antares
     eza
-    fish
     protonvpn-gui
     sesh
     television
@@ -49,9 +48,13 @@
     atuin
     texliveSmall
     sqlite
+    typora
+    dust
 
     # Packages that need OpenGL/Vulkan - wrapped automatically
-    (config.lib.nixGL.wrap zed-editor-fhs)
+    #    (config.lib.nixGL.wrap zed-editor-fhs)
+
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -101,13 +104,35 @@
     # EDITOR = "emacs";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    # Let Home Manager install and manage itself.
+    home-manager = {
+      enable = true;
+    };
+    # Git
+    git = {
+      enable = true;
+      userName = "mm-2103";
+      userEmail = "mohsen.menem@protonmail.com";
+    };
+    # Starship
+    starship = {
+      enable = true;
+    };
+    # Direnv
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+  };
 
-  programs.git = {
-    enable = true;
-    userName = "mm-2103";
-    userEmail = "mohsen.menem@protonmail.com";
+  fonts = {
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "Iosevka Nerd Font Mono" ];
+      };
+    };
   };
 
   xdg = {
