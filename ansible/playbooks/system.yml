@@ -1,0 +1,41 @@
+---
+- name: System Setup
+  hosts: localhost
+  connection: local
+  become: yes
+  
+  tasks:
+    - name: Get distribution info
+      setup:
+        filter: ansible_distribution
+    
+    - name: Install system packages (Fedora)
+      dnf:
+        name:
+          - docker
+          - docker-compose
+        state: present
+      when: ansible_distribution == "Fedora"
+    
+    - name: Install system packages (Arch)
+      pacman:
+        name:
+          - docker
+          - docker-compose
+        state: present
+      when: ansible_distribution == "Archlinux"
+    
+    - name: Start and enable services
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+        state: started
+      loop:
+        - docker
+      ignore_errors: yes
+    
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_env.USER }}"
+        groups: docker
+        append: yes

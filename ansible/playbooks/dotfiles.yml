@@ -1,0 +1,65 @@
+---
+- name: Setup dotfiles symlinks
+  hosts: localhost
+  connection: local
+  vars:
+    dotfiles_dir: "{{ ansible_env.HOME }}/system-config/dotfiles"
+    config_dir: "{{ ansible_env.HOME }}/.config"
+    system_config_dir: "{{ ansible_env.HOME }}/system-config"
+
+  tasks:
+    - name: Ensure .config directory exists
+      file:
+        path: "{{ config_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Create ~/.config symlinks
+      file:
+        src: "{{ dotfiles_dir }}/{{ item }}"
+        dest: "{{ config_dir }}/{{ item }}"
+        state: link
+        force: yes
+      loop:
+        - alacritty
+        - hypr
+        - nvim
+        - fish
+        - starship
+        - lazygit
+        - kitty
+        - foot
+        - helix
+        - tmux
+        - rofi
+        - waybar
+        - atuin
+        - sesh
+        - ghostty
+        - mako
+        - dunst
+        - i3
+        - awesome
+        - bspwm
+        - nushell
+        - wezterm
+        - wayfire
+        - swaylock
+        - niri
+        - fuzzel
+        - emacs
+        - eza
+        - fastfetch
+        - nix
+        - opencode
+        - uwsm
+        - wireplumber
+        - zsh
+      ignore_errors: yes  # Skip if source doesn't exist
+
+    - name: Symlink home-manager config
+      file:
+        src: "{{ system_config_dir }}/home-manager"
+        dest: "{{ config_dir }}/home-manager"
+        state: link
+        force: yes
