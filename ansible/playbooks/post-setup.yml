@@ -1,0 +1,33 @@
+---
+- name: Post home-manager setup tasks
+  hosts: localhost
+  connection: local
+  vars:
+    target_user: "mm-2103"
+    fish_path: "/home/{{ target_user }}/.nix-profile/bin/fish"
+
+  tasks:
+    - name: Check if fish is installed via home-manager
+      stat:
+        path: "{{ fish_path }}"
+      register: fish_binary
+
+    - name: Add fish to /etc/shells
+      lineinfile:
+        path: /etc/shells
+        line: "{{ fish_path }}"
+        create: yes
+      become: yes
+      when: fish_binary.stat.exists
+
+    - name: Set fish as default shell for user
+      user:
+        name: "{{ target_user }}"
+        shell: "{{ fish_path }}"
+      become: yes
+      when: fish_binary.stat.exists
+
+    - name: Display shell change info
+      debug:
+        msg: "Fish shell has been set as default for user {{ target_user }}"
+      when: fish_binary.stat.exists
