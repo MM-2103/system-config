@@ -172,6 +172,10 @@ main() {
     log "🏠 Finalizing home-manager setup..."
     home-manager switch --flake ~/.config/home-manager#mm-2103
 
+    # Post-setup tasks
+    log "🔧 Running post-setup tasks..."
+    ansible-playbook ansible/playbooks/post-setup.yml --ask-become-pass
+
     log "✅ Bootstrap complete!"
     log "Please restart your shell or run: source ~/.bashrc"
 }
