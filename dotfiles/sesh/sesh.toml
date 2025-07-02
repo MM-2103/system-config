@@ -1,8 +1,13 @@
 [default_session]
 
 [[session]]
+name = "System config"
+path = "~/system-config"
+startup_command = "vim"
+
+[[session]]
 name = "Dotfiles"
-path = "~/dotfiles"
+path = "~/system-config/dotfiles"
 startup_command = "vim"
 
 [[session]]
@@ -11,12 +16,8 @@ path = "~/projects/work"
 
 [[session]]
 name = "Nvim Config"
-path = "~/dotfiles/nvim"
+path = "~/system-config/dotfiles/nvim"
 startup_command = "vim"
-
-[[session]]
-name = "Hermes Updates"
-path = "~/projects/school/cerberos-hermes-updates"
 
 [[session]]
 name = "Home"
