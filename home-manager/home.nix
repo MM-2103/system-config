@@ -41,6 +41,7 @@
     tealdeer
     fish
     zoxide
+    metasploit
 
     # Install Iosevka font
     # (nerdfonts.override { fonts = [ "Iosevka" ]; })
