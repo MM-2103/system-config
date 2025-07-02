@@ -414,7 +414,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "alacritty"; }
+    Mod+Return { spawn "foot"; }
     Mod+P { spawn "fuzzel"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
