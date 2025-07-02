@@ -614,7 +614,7 @@ binds {
     Mod+T       { toggle-window-floating; }
     Mod+Shift+T { switch-focus-between-floating-and-tiling; }
 
-    Mod+V { spawn "~/dotfiles/niri/scripts/cliphist.sh"; }
+    Mod+V { spawn "~/system-config/dotfiles/niri/scripts/cliphist.sh"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
