@@ -11,7 +11,7 @@ fish_vi_key_bindings
 set -x MANPAGER "nvim +Man!"
 
 # Default Editor
-set EDITOR "nvim''"                               # $EDITOR use Emacs in terminal
+set EDITOR "nvim"                               # $EDITOR use Emacs in terminal
 
 # Export env variables
 if test -f ~/dotfiles/fish/conf.d/env.fish
