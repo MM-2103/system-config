@@ -99,7 +99,7 @@ install_nix() {
     fi
 
     log "Installing Nix..."
-    sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
+    curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
 
     # Source nix for current session
     if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
