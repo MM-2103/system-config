@@ -1,4 +1,0 @@
-[provider]
-name = "OpenRouter"
-env = ["OPENROUTER_API_KEY"]
-npm = "@openrouter/ai-sdk-provider"
