@@ -42,6 +42,18 @@
     fish
     zoxide
     metasploit
+    jq
+    yq
+    rustup
+    cliphist
+    go
+    php
+    php84Packages.composer
+    bun
+    htop
+    pamixer
+
+    nerd-fonts.iosevka
 
     # Install Iosevka font
     # (nerdfonts.override { fonts = [ "Iosevka" ]; })
