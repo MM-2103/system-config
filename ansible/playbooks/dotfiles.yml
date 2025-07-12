@@ -55,6 +55,7 @@
         - uwsm
         - wireplumber
         - zsh
+        - zellij
       ignore_errors: yes  # Skip if source doesn't exist
 
     - name: Symlink home-manager config
