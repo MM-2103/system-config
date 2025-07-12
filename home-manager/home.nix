@@ -52,6 +52,7 @@
     bun
     htop
     pamixer
+    zellij
 
     nerd-fonts.iosevka
 
