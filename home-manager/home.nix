@@ -1,12 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   nixGL = {
     vulkan.enable = true;
     packages = pkgs.nixgl;
     defaultWrapper = "mesa";
-    offloadWrapper = "nvidiaPrime";  
-    installScripts = [ "mesa" "nvidiaPrime" ];
+    offloadWrapper = "nvidiaPrime";
+    installScripts = [
+      "mesa"
+      "nvidiaPrime"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -53,60 +61,70 @@
     htop
     pamixer
     zellij
+    btop
+    cmake
+    prettierd
+    nodePackages.prettier
+    ruby
+    git-crypt
+    zig
+    ly
 
+    # Nerd fonts
     nerd-fonts.iosevka
+    nerd-fonts.iosevka-term
 
     # Install Iosevka font
     # (nerdfonts.override { fonts = [ "Iosevka" ]; })
 
     # Packages that need OpenGL/Vulkan - wrapped automatically
     # (config.lib.nixGL.wrap zed-editor-fhs)
-
+    (config.lib.nixGL.wrap freecad-wayland)
   ];
 
   home.file = {
     # ~/.config/ destinations
     # ".config/alacritty".source = ../dotfiles/alacritty;
     #    ".config/atuin".source = ../dotfiles/atuin;
-   #".config/awesome".source = ../dotfiles/awesome;
-   #".config/bspwm".source = ../dotfiles/bspwm;
-   #".config/dunst".source = ../dotfiles/dunst;
-   #".config/emacs".source = ../dotfiles/emacs;
-   #".config/eza".source = ../dotfiles/eza;
-   #".config/fastfetch".source = ../dotfiles/fastfetch;
-   #".config/fish".source = ../dotfiles/fish;
-   #".config/foot".source = ../dotfiles/foot;
-   #".config/fuzzel".source = ../dotfiles/fuzzel;
-   #".config/ghostty".source = ../dotfiles/ghostty;
-   #".config/helix".source = ../dotfiles/helix;
-   #".config/hypr".source = ../dotfiles/hypr;
-   #".config/i3".source = ../dotfiles/i3;
-   #".config/kitty".source = ../dotfiles/kitty;
-   #".config/lazygit".source = ../dotfiles/lazygit;
-   #".config/mako".source = ../dotfiles/mako;
-   #".config/niri".source = ../dotfiles/niri;
-   #".config/nix".source = ../dotfiles/nix;
-   #".config/nushell".source = ../dotfiles/nushell;
-   #".config/nvim".source = ../dotfiles/nvim;
-   #".config/picom".source = ../dotfiles/picom;
-   #".config/quickshell".source = ../dotfiles/quickshell;
-   #".config/river".source = ../dotfiles/river;
-   #".config/rofi".source = ../dotfiles/rofi;
-   #".config/sesh".source = ../dotfiles/sesh;
-   #".config/starship".source = ../dotfiles/starship;
-   #".config/swaylock".source = ../dotfiles/swaylock;
-   #".config/tmux".source = ../dotfiles/tmux;
-   #".config/uwsm".source = ../dotfiles/uwsm;
-   #".config/waybar".source = ../dotfiles/waybar;
-   #".config/wayfire".source = ../dotfiles/wayfire;
-   #".config/wezterm".source = ../dotfiles/wezterm;
-   #".config/wireplumber".source = ../dotfiles/wireplumber;
-   #".config/xmonad".source = ../dotfiles/xmonad;
-   #".config/zsh".source = ../dotfiles/zsh;
+    #".config/awesome".source = ../dotfiles/awesome;
+    #".config/bspwm".source = ../dotfiles/bspwm;
+    #".config/dunst".source = ../dotfiles/dunst;
+    #".config/emacs".source = ../dotfiles/emacs;
+    #".config/eza".source = ../dotfiles/eza;
+    #".config/fastfetch".source = ../dotfiles/fastfetch;
+    #".config/fish".source = ../dotfiles/fish;
+    #".config/foot".source = ../dotfiles/foot;
+    #".config/fuzzel".source = ../dotfiles/fuzzel;
+    #".config/ghostty".source = ../dotfiles/ghostty;
+    #".config/helix".source = ../dotfiles/helix;
+    #".config/hypr".source = ../dotfiles/hypr;
+    #".config/i3".source = ../dotfiles/i3;
+    #".config/kitty".source = ../dotfiles/kitty;
+    #".config/lazygit".source = ../dotfiles/lazygit;
+    #".config/mako".source = ../dotfiles/mako;
+    #".config/niri".source = ../dotfiles/niri;
+    #".config/nix".source = ../dotfiles/nix;
+    #".config/nushell".source = ../dotfiles/nushell;
+    #".config/nvim".source = ../dotfiles/nvim;
+    #".config/picom".source = ../dotfiles/picom;
+    #".config/quickshell".source = ../dotfiles/quickshell;
+    #".config/river".source = ../dotfiles/river;
+    #".config/rofi".source = ../dotfiles/rofi;
+    #".config/sesh".source = ../dotfiles/sesh;
+    #".config/starship".source = ../dotfiles/starship;
+    #".config/swaylock".source = ../dotfiles/swaylock;
+    #".config/tmux".source = ../dotfiles/tmux;
+    #".config/uwsm".source = ../dotfiles/uwsm;
+    #".config/waybar".source = ../dotfiles/waybar;
+    #".config/wayfire".source = ../dotfiles/wayfire;
+    #".config/wezterm".source = ../dotfiles/wezterm;
+    #".config/wireplumber".source = ../dotfiles/wireplumber;
+    #".config/xmonad".source = ../dotfiles/xmonad;
+    #".config/zsh".source = ../dotfiles/zsh;
 
     # ~/ destinations (traditional locations)
     #".tmux.conf".source = ../dotfiles/tmate/tmate.conf;  # If you want tmate config as tmux
-    
+
     # Scripts and other files
     # ".local/bin/dwm-autostart".source = ../dotfiles/dwm/autostart.sh;
     # ".local/bin/gnome-startup".source = ../dotfiles/gnome/startup.sh;
@@ -135,6 +153,17 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+    };
+
+    emacs = {
+      enable = true;
+    };
+  };
+
+  services = {
+    cliphist = {
+      enable = true;
+      allowImages = true;
     };
   };
 
