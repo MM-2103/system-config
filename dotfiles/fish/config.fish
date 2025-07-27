@@ -1,5 +1,5 @@
 # Path
-set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" "$HOME/.opencode/bin" "/nix/store/g7yc135wzgh6abfwh074gd0bz6i5xzkh-nix-3.6.1/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" $PATH
 
 # Zoxide
 zoxide init fish | source

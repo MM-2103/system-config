@@ -40,5 +40,6 @@ alias ytm="yt-dlp -P "~/Music" --throttled-rate 100K -f bestaudio --extract-audi
 # Nix
 alias nixenv="echo 'use nix' > .envrc && direnv allow"
 alias hm-switch="home-manager switch --flake ~/.config/home-manager#mm-2103"
+alias nr-switch="sudo nixos-rebuild switch --flake /etc/nixos#MM-2103"
 
 alias cpuwatch="watch -n 1 'cat /proc/cpuinfo | grep \"cpu MHz\"'"
