@@ -24,6 +24,11 @@ name = "Home"
 path = "~/"
 
 [[session]]
+name = "Nixos Config"
+path = "/etc/nixos"
+startup_command = "sudo -E nvim"
+
+[[session]]
 name = "New Project"
 path = "~/projects/personal"
 startup_command = "new_project"
