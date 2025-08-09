@@ -302,7 +302,7 @@ spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "hypridle"
-spawn-at-startup "/usr/libexec/hyprpolkitagent"
+spawn-at-startup "/usr/lib/hyprpolkitagent/hyprpolkitagent"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
