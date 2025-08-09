@@ -16,18 +16,77 @@
   # Packages (formerly both environment.systemPackages + home.packages)
   # ------------------------------------------------------------------
   home.packages = with pkgs; [
-    lazygit lazydocker ansible-language-server antares eza protonvpn-gui
-    sesh television umu-launcher evil-helix dysk thunderbird intelephense
-    gimp3 protonup-qt pandoc atuin texliveSmall sqlite dust tealdeer zoxide
-    metasploit jq yq rustup cliphist go php bun htop pamixer zellij btop
-    cmake prettierd ruby git-crypt zig ly tmux fzf networkmanagerapplet
-    nwg-look mesa-demos unigine-heaven mangohud protonup heroic git-extras
-    delta xivlauncher keepassxc adw-gtk3 libsForQt5.qt5ct gnome-themes-extra
-    opencode chromium sgdboop fastfetch mpv bat rubyPackages.solargraph
-    typescript-language-server omnisharp-roslyn libreoffice-qt6-fresh gh
-    ripgrep git-lfs discord pavucontrol hyprlock hypridle hyprpaper
-    hyprpicker hyprsunset tor-browser librewolf lutris calibre
-    rocmPackages.llvm.clang-tools obs-studio
+    lazygit
+    lazydocker
+    ansible-language-server
+    antares
+    eza
+    protonvpn-gui
+    sesh
+    umu-launcher
+    evil-helix
+    dysk
+    thunderbird
+    intelephense
+    gimp3
+    protonup-qt
+    pandoc
+    atuin
+    texliveSmall
+    sqlite
+    dust
+    tealdeer
+    zoxide
+    metasploit
+    jq
+    yq
+    rustup
+    cliphist
+    go
+    php
+    php84Packages.composer
+    bun
+    htop
+    pamixer
+    zellij
+    btop
+    cmake
+    prettierd
+    ruby
+    git-crypt
+    zig
+    ly
+    tmux
+    fzf
+    networkmanagerapplet
+    nwg-look
+    mangohud
+    protonup
+    git-extras
+    delta
+    keepassxc
+    adw-gtk3
+    libsForQt5.qt5ct
+    gnome-themes-extra
+    sgdboop
+    fastfetch
+    bat
+    rubyPackages.solargraph
+    typescript-language-server
+    omnisharp-roslyn
+    libreoffice-qt6-fresh
+    gh
+    ripgrep
+    git-lfs
+    pavucontrol
+    tor-browser
+    librewolf
+    lutris
+    calibre
+    rocmPackages.llvm.clang-tools
+    nodejs_24
+    unzip
+    ibm-plex
   ];
 
   # ------------------------------------------------------------------
@@ -103,9 +162,13 @@
       nix-direnv.enable = true;
     };
 
+   home-manager = {
+     enable = true;
+   };
+
     emacs.enable   = true;
-    fish.enable    = true;
-    tmux.enable    = true;
+    #fish.enable    = true;
+    #tmux.enable    = true;
     fuzzel.enable  = true;
     waybar.enable  = true;
   };
@@ -118,12 +181,24 @@
       enable       = true;
       allowImages  = true;
     };
-    mako.enable       = true;
-    polkit-gnome.enable = true;
+    # polkit-gnome.enable = true;
     wlsunset = {
       enable   = true;
       sunrise  = "7:00";
       sunset   = "23:00";
     };
   };
+
+  # ------------------------------------------------------------------
+  # Fonts
+  # ------------------------------------------------------------------
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "Iosevka Nerd Font Mono" ];
+      sansSerif = [ "IBM Plex Sans" "Noto Sans" ];
+      serif     = [ "IBM Plex Serif" "Noto Serif" ];
+    };
+  };
+
 }
