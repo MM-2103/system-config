@@ -1,19 +1,55 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Editor Options --
+vim.o.relativenumber = true
+vim.o.confirm = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.list = true
+vim.o.cursorline = true
+vim.o.wrap = false
+vim.o.swapfile = false
+vim.o.signcolumn = 'yes'
+vim.o.clipboard = 'unnamedplus'
+vim.o.winborder = "rounded"
+vim.o.tabstop = 4
+vim.o.updatetime = 250
+vim.o.timeoutlen = 10000
 
--- Set Neovim's default shell to Fish
-vim.o.shell = 'fish'
+-- Global Variables --
+vim.g.have_nerd_font = true
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.markdown_recommended_style = 0
+vim.g.base16_background_transparent = 1
+vim.g.base16_colorspace = 256
 
--- Tell Fish to act as a login shell and execute commands.
--- This ensures it sources your ~/.config/fish/config.fish
-vim.o.shellcmdflag = '-lc'
+-- Keybinds --
+vim.keymap.set('n', '<leader>so', ':update<CR> :source<CR>')
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>sf', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>o', ":Oil<CR>")
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
+-- Plugins --
+vim.pack.add({
+	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/echasnovski/mini.pick" },
+	{ src = "https://github.com/stevearc/oil.nvim" },
+})
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+require "mini.pick".setup()
+require "oil".setup()
+
+-- Colorscheme --
+vim.cmd("colorscheme gruvbox")
+
+-- LSP --
+vim.lsp.enable({ "lua_ls", "intelephense" })
+
+-- Scripts --
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -22,20 +58,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Configure diagnostics
-vim.diagnostic.config {
-  float = {
-    focusable = false,
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
-}
-
--- Auto-show diagnostics on hover
 vim.api.nvim_create_autocmd('CursorHold', {
+  desc = 'Auto-show diagnostics on hover',
   callback = function()
     local opts = {
       focusable = false,
@@ -47,76 +71,4 @@ vim.api.nvim_create_autocmd('CursorHold', {
     }
     vim.diagnostic.open_float(nil, opts)
   end,
-})
-
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--branch=stable',
-    lazyrepo,
-    lazypath,
-  }
-end
-
----@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
-
--- [[ Configure and install plugins ]]
-require('lazy').setup({
-  {},
-  -- automatically check for plugin updates
-  checker = { enabled = true },
-  performance = {
-    rtp = {
-      -- disable some rtp plugins
-      disabled_plugins = {
-        'gzip',
-        'matchit',
-        'matchparen',
-        'netrwPlugin',
-        'tarPlugin',
-        'tohtml',
-        'tutor',
-        'zipPlugin',
-      },
-    },
-  },
-  { import = 'coding.cmp' },
-  { import = 'coding.ai' },
-  { import = 'coding.format' },
-  { import = 'coding.git' },
-  { import = 'coding.lsp' },
-  { import = 'coding.todo' },
-
-  { import = 'ui.filetree' },
-  { import = 'ui.snacks' },
-  { import = 'ui.misc' },
-  { import = 'ui.notifications' },
-  { import = 'ui.themes' },
-}, {
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
 })
