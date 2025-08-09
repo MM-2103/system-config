@@ -7,13 +7,14 @@ vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.list = true
 vim.o.cursorline = true
+vim.o.hlsearch = true
+vim.o.incsearch = true
 vim.o.wrap = false
 vim.o.swapfile = false
 vim.o.signcolumn = 'yes'
 vim.o.clipboard = 'unnamedplus'
 vim.o.winborder = "rounded"
 vim.o.tabstop = 2
-vim.o.updatetime = 250
 vim.o.timeoutlen = 500
 
 -- Global Variables --
@@ -29,31 +30,45 @@ vim.keymap.set('n', '<leader>so', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gr', vim.lsp.buf.references)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
-vim.keymap.set('n', '<leader>o', ":Oil<CR>")
-vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>g', ":Pick grep_live<CR>")
 vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'H', ':bprevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', ':bnext<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'bd', ':bdelete<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Plugins --
 vim.pack.add({
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
 
 require "mini.pick".setup()
-require "oil".setup()
-require "mason".setup()
+require "mason".setup{
+				ensure_installed = {
+						"intelephense",
+						"phpactor",
+						"typescript-language-server",
+						"pint",
+				},
+}
 require "nvim-treesitter".setup {
 	ensure_installed = { "php", "javascript", "lua" },
 	auto_install = true,
 	highlight = {
 		enable = true,
+		-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+		--  If you are experiencing weird indenting issues, add the language to
+		--  the list of additional_vim_regex_highlighting and disabled languages for indent.
+		additional_vim_regex_highlighting = { 'ruby' },
 	},
+	indent = { enable = true, disable = { 'ruby' } },
 }
 require('mini.files').setup {
 	-- Customization of shown content
@@ -111,7 +126,6 @@ require('mini.extra').setup()
 require('mini.icons').setup()
 require('mini.comment').setup()
 require('mini.completion').setup()
-require('mini.clue').setup()
 require('mini.statusline').setup()
 require('mini.tabline').setup()
 
