@@ -5,15 +5,7 @@ return {
   opts = {
     picker = {
       prompt = ' ',
-      sources = {
-        explorer = {
-          hidden = true,
-          ignored = true,
-          layout = {
-            auto_hide = { 'input' },
-          },
-        },
-      },
+      sources = {},
       focus = 'input',
       layout = {
         cycle = true,

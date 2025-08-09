@@ -35,6 +35,10 @@ set('n', '<leader>z', function()
   Snacks.zen()
 end, { desc = 'Toggle [Z]en Mode' })
 
+set('n', '<leader>lg', function()
+  Snacks.lazygit()
+end, { desc = '[L]azy[G]it' })
+
 -- =====================================================================
 -- Security Keymaps
 -- =====================================================================
@@ -76,13 +80,15 @@ set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
 set('v', '<', '<gv')
 set('v', '>', '>gv')
 
+-- ---------------------------------------------------------------------
+-- MiniFiles helpers
+-- ---------------------------------------------------------------------
+local MiniFiles = require 'mini.files'
+
 -- =====================================================================
 -- Explorer Keymaps
 -- =====================================================================
--- @ToDo: figure out how to hide the search and set sane defaults for this to be useful.
-set('n', '<leader>fe', function()
-  Snacks.explorer()
-end, { desc = '[E]xplorer' })
+set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
 
 -- =====================================================================
 -- Search Keymaps
