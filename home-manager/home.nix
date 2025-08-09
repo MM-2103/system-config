@@ -81,7 +81,6 @@
     pavucontrol
     tor-browser
     librewolf
-    lutris
     calibre
     rocmPackages.llvm.clang-tools
     nodejs_24
@@ -130,8 +129,8 @@
       "image/png"              = "org.kde.gwenview.desktop";
       "video/mp4"              = "mpv.desktop";
       "video/x-matroska"       = "mpv.desktop";
-      "x-scheme-handler/http"  = "app.zen_browser.zen.desktop";
-      "x-scheme-handler/https" = "app.zen_browser.zen.desktop";
+      "x-scheme-handler/http"  = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
     };
     associations.added = {
       "application/pdf" = [ "org.kde.okular.desktop" ];
