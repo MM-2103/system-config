@@ -14,7 +14,7 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.winborder = "rounded"
 vim.o.tabstop = 2
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 -- Global Variables --
 vim.g.have_nerd_font = true
@@ -32,6 +32,9 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>o', ":Oil<CR>")
 vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'H', ':bprevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'L', ':bnext<CR>', { noremap = true, silent = true })
 
 -- Plugins --
 vim.pack.add({
@@ -104,6 +107,13 @@ require('mini.files').setup {
 	},
 }
 require('mini.basics').setup()
+require('mini.extra').setup()
+require('mini.icons').setup()
+require('mini.comment').setup()
+require('mini.completion').setup()
+require('mini.clue').setup()
+require('mini.statusline').setup()
+require('mini.tabline').setup()
 
 -- Colorscheme --
 vim.cmd("colorscheme gruvbox")
