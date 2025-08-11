@@ -35,6 +35,9 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, { noremap = true, silent =
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { noremap = true, silent = true })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>sf', ":Pick files<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>sg', ":Pick grep_live<CR>", { noremap = true, silent = true })
@@ -83,15 +86,15 @@ require('mini.files').setup {
   mappings = {
     close = '<leader>fe',
     go_in = 'l',
-    go_in_plus = 'L',
+    go_in_plus = '<CR>',
     go_out = 'h',
     go_out_plus = 'H',
     mark_goto = "'",
     mark_set = 'm',
     reset = '<BS>',
-    reveal_cwd = '@',
+    reveal_cwd = '=',
     show_help = 'g?',
-    synchronize = '=',
+    synchronize = '@',
     trim_left = '<',
     trim_right = '>',
   },
@@ -137,7 +140,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
