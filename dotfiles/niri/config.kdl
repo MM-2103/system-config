@@ -15,6 +15,7 @@ input {
             // For example:
             // layout "us,ru"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+            options "caps:super"
         }
         repeat-delay 300
         repeat-rate 30
@@ -295,7 +296,7 @@ spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "waybar"
-spawn-at-startup "mako"
+spawn-at-startup "swaync"
 spawn-at-startup "cb"
 spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
