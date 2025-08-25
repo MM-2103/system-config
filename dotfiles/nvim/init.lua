@@ -59,7 +59,7 @@ vim.pack.add({
 require "mini.pick".setup()
 require "mason".setup()
 require "nvim-treesitter".setup {
-  ensure_installed = { "php", "javascript", "lua", "c", "nix" },
+  ensure_installed = { "php", "javascript", "lua", "c", "nix", "html" },
   auto_install = true,
   highlight = {
     enable = true,
@@ -133,7 +133,7 @@ require('mini.tabline').setup()
 vim.cmd("colorscheme gruvbox")
 
 -- LSP --
-vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls" })
+vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls", "html", "twiggy_language_server" })
 
 -- Scripts --
 vim.api.nvim_create_autocmd('TextYankPost', {
