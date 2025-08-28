@@ -83,7 +83,6 @@
     librewolf
     calibre
     rocmPackages.llvm.clang-tools
-    nodejs_24
     unzip
     ibm-plex
   ];
@@ -148,11 +147,11 @@
   # User-level programs
   # ------------------------------------------------------------------
   programs = {
-    git = {
-      enable      = true;
-      userName    = "mm-2103";
-      userEmail   = "mohsen.menem@protonmail.com";
-    };
+    # git = {
+    #   enable      = true;
+    #   userName    = "mm-2103";
+    #   userEmail   = "mohsen.menem@protonmail.com";
+    # };
 
     starship.enable = true;
 
@@ -181,11 +180,11 @@
       allowImages  = true;
     };
     # polkit-gnome.enable = true;
-    wlsunset = {
-      enable   = true;
-      sunrise  = "7:00";
-      sunset   = "23:00";
-    };
+    # wlsunset = {
+    #   enable   = true;
+    #   sunrise  = "7:00";
+    #   sunset   = "23:00";
+    # };
   };
 
   # ------------------------------------------------------------------
