@@ -39,10 +39,9 @@ vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { noremap = true, s
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>sf', ":Pick files<CR>", { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>sg', ":Pick grep_live<CR>", { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>',
-  { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sf', ":Telescope find_files<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>sg', ":Telescope grep_string<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fe', ':Oil<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'H', ':bprevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', ':bnext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'bd', ':bdelete<CR>', { noremap = true, silent = true })
@@ -53,10 +52,13 @@ vim.pack.add({
   { src = "https://github.com/ellisonleao/gruvbox.nvim" },
   { src = "https://github.com/echasnovski/mini.nvim" },
   { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
 
-require "mini.pick".setup()
 require "mason".setup()
 require "nvim-treesitter".setup {
   ensure_installed = { "php", "javascript", "lua", "c", "nix", "html" },
@@ -70,57 +72,7 @@ require "nvim-treesitter".setup {
   },
   indent = { enable = true, disable = { 'ruby' } },
 }
-require('mini.files').setup {
-  -- Customization of shown content
-  content = {
-    -- Predicate for which file system entries to show
-    filter = nil,
-    -- What prefix to show to the left of file system entry
-    prefix = nil,
-    -- In which order to show file system entries
-    sort = nil,
-  },
 
-  -- Module mappings created only inside explorer.
-  -- Use `''` (empty string) to not create one.
-  mappings = {
-    close = '<leader>fe',
-    go_in = 'l',
-    go_in_plus = '<CR>',
-    go_out = 'h',
-    go_out_plus = 'H',
-    mark_goto = "'",
-    mark_set = 'm',
-    reset = '<BS>',
-    reveal_cwd = '=',
-    show_help = 'g?',
-    synchronize = '@',
-    trim_left = '<',
-    trim_right = '>',
-  },
-
-  -- General options
-  options = {
-    -- Whether to delete permanently or move into module-specific trash
-    permanent_delete = true,
-    -- Whether to use for editing directories
-    use_as_default_explorer = true,
-  },
-
-  -- Customization of explorer windows
-  windows = {
-    -- Maximum number of windows to show side by side
-    max_number = math.huge,
-    -- Whether to show preview of file/directory under cursor
-    preview = false,
-    -- Width of focused window
-    width_focus = 50,
-    -- Width of non-focused window
-    width_nofocus = 15,
-    -- Width of preview window
-    width_preview = 25,
-  },
-}
 require('mini.basics').setup()
 require('mini.extra').setup()
 require('mini.icons').setup()
@@ -128,6 +80,10 @@ require('mini.comment').setup()
 require('mini.completion').setup()
 require('mini.statusline').setup()
 require('mini.tabline').setup()
+
+require('oil').setup()
+
+require('telescope').setup()
 
 -- Colorscheme --
 vim.cmd("colorscheme gruvbox")
