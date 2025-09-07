@@ -1,4 +1,5 @@
-font-family = "Iosevka InputMono"
+font-family = "Input Nerd Font"
+font-size = 13
 font-feature = +liga
 cursor-style = block
 mouse-hide-while-typing = true
