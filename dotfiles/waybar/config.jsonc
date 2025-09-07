@@ -60,23 +60,23 @@
 
     "battery": {
         "format": " {icon} ",
-        "format-charging": "",
-        "format-plugged": "",
-        "format-icons": ["", "",  "", "", "", "", "", "", "", "", "", ""],
+        "format-icons": [" ", " ", " ", " ", " "],
+        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>",
+        "interval": 30,
         "states": {
             "warning": 20,
             "critical": 10
-        },
+        }
     },
 
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format": " {ifname} ",
         "format-wifi": " {essid}  ",
-        "format-ethernet": "",
+        "format-ethernet": " ",
         "format-disconnected": " Disconnected ⚠ ",
         "tooltip-format-wifi": " {essid} ({signalStrength}%)  ",
-        "tooltip-format-ethernet": " {ifname} ({ipaddr}/{cidr})   ",
+        "tooltip-format-ethernet": " {ifname} ({ipaddr}/{cidr})   ",
         "format-linked": " {ifname} (No IP)   ",
         "on-click": "nm-connection-editor"
     },
@@ -85,12 +85,11 @@
         "format": " {icon} {volume}% ",
         "format-bluetooth": " {volume}% {icon} {format_source} ",
         "format-bluetooth-muted": "  {icon} {format_source} ",
-        "format-muted": "",
+        "format-muted": " ",
         "format-source-muted": "  ",
         "format-icons": {
             "headphone": "  ",
-            "hands-free": "  ",
-            "headset": "  ",
+            "headset": "󰥰 ",
             "phone": "  ",
             "portable": "  ",
             "car": "  ",
