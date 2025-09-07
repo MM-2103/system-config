@@ -31,20 +31,18 @@ vim.g.base16_colorspace = 256
 
 -- Keybinds --
 vim.keymap.set('n', '<leader>so', ':update<CR> :source<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, { noremap = true, silent = true })
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
-vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { noremap = true, silent = true })
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>sf', ":Telescope find_files<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>sg', ":Telescope grep_string<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fe', ':Oil<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gf', ':Git<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set('n', 'bd', ':bdelete<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, silent = true })
 vim.keymap.set('n', 'H', ':bprevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', ':bnext<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'bd', ':bdelete<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { noremap = true, silent = true })
 
 -- Plugins --
@@ -56,12 +54,17 @@ vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-telescope/telescope.nvim" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/tpope/vim-fugitive" },
+  { src = "https://github.com/vimwiki/vimwiki" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  { src = "https://github.com/folke/which-key.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
 
 require "mason".setup()
 require "nvim-treesitter".setup {
-  ensure_installed = { "php", "javascript", "lua", "c", "nix", "html" },
+  ensure_installed = { "php", "javascript", "lua", "c", "nix", "html", "c_sharp" },
   auto_install = true,
   highlight = {
     enable = true,
@@ -80,16 +83,53 @@ require('mini.comment').setup()
 require('mini.completion').setup()
 require('mini.statusline').setup()
 require('mini.tabline').setup()
+require('mini.starter').setup()
+require('mini.notify').setup()
 
-require('oil').setup()
+require('oil').setup {
+  view_options = {
+    -- Show files and directories that start with "."
+    show_hidden = true,
+    -- This function defines what is considered a "hidden" file
+    is_hidden_file = function(name, bufnr)
+      local m = name:match("^%.")
+      return m ~= nil
+    end,
+    -- This function defines what will never be shown, even when `show_hidden` is set
+    is_always_hidden = function(name, bufnr)
+      return false
+    end,
+    -- Sort file names with numbers in a more intuitive order for humans.
+    -- Can be "fast", true, or false. "fast" will turn it off for large directories.
+    natural_order = "fast",
+    -- Sort file and directory names case insensitive
+    case_insensitive = false,
+    sort = {
+      -- sort order can be "asc" or "desc"
+      -- see :help oil-columns to see which columns are sortable
+      { "type", "asc" },
+      { "name", "asc" },
+    },
+    -- Customize the highlight group for the file name
+    highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
+      return nil
+    end,
+  },
+}
 
 require('telescope').setup()
+
+require('mason-lspconfig').setup()
+
+require('which-key').setup {
+  preset = "helix",
+}
 
 -- Colorscheme --
 vim.cmd("colorscheme gruvbox")
 
 -- LSP --
-vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls", "html", "twiggy_language_server" })
+vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls", "html", "twiggy_language_server", "csharp_ls" })
 
 -- Scripts --
 vim.api.nvim_create_autocmd('TextYankPost', {
