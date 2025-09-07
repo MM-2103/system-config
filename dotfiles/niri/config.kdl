@@ -69,9 +69,9 @@ gestures {
     }
 }
 
-environment {
-    DISPLAY ":0"
-}
+// environment {
+//     DISPLAY ":0"
+// }
 
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
@@ -292,7 +292,6 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "hyprpaper"
 spawn-at-startup "waybar"
@@ -416,7 +415,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "foot"; }
+    Mod+Return { spawn "ghostty"; }
     Mod+P { spawn "fuzzel"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
