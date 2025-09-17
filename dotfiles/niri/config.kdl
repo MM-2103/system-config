@@ -69,9 +69,9 @@ gestures {
     }
 }
 
-// environment {
-//     DISPLAY ":0"
-// }
+environment {
+    DISPLAY ":0"
+}
 
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
@@ -292,9 +292,10 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
+spawn-at-startup "xwayland-satellite"
 spawn-at-startup "kwalletd6"
 spawn-at-startup "hyprpaper"
-spawn-at-startup "waybar"
+spawn-at-startup "~/.config/niri/scripts/waybar.sh"
 spawn-at-startup "swaync"
 spawn-at-startup "udiskie"
 spawn-at-startup "nm-applet"
@@ -302,7 +303,7 @@ spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "blueman-applet"
 spawn-at-startup "hypridle"
-spawn-at-startup "/usr/libexec/hyprpolkitagent"
+spawn-at-startup "/usr/lib/hyprpolkitagent/hyprpolkitagent"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
