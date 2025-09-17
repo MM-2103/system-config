@@ -64,7 +64,7 @@ vim.pack.add({
 
 require "mason".setup()
 require "nvim-treesitter".setup {
-  ensure_installed = { "php", "javascript", "lua", "c", "nix", "html", "c_sharp" },
+  ensure_installed = { "php", "javascript", "lua", "c", "nix", "html", "c_sharp", "go" },
   auto_install = true,
   highlight = {
     enable = true,
@@ -129,7 +129,8 @@ require('which-key').setup {
 vim.cmd("colorscheme gruvbox")
 
 -- LSP --
-vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls", "html", "twiggy_language_server", "csharp_ls" })
+vim.lsp.enable({ "lua_ls", "intelephense", "phpactor", "clangd", "nil_ls", "html", "twiggy_language_server", "csharp_ls",
+  "gopls" })
 
 -- Scripts --
 vim.api.nvim_create_autocmd('TextYankPost', {
