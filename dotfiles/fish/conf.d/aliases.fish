@@ -43,3 +43,6 @@ alias hm-switch="home-manager switch --flake ~/.config/home-manager#mm-2103"
 alias nr-switch="sudo nixos-rebuild switch --flake /etc/nixos#MM-2103"
 
 alias cpuwatch="watch -n 1 'cat /proc/cpuinfo | grep \"cpu MHz\"'"
+
+alias dcrm='docker rm $(docker ps -a -q)'
+alias dcirm='docker rmi $(docker images -q)'
