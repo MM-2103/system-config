@@ -19,7 +19,6 @@
     lazygit
     lazydocker
     ansible-language-server
-    antares
     eza
     protonvpn-gui
     sesh
@@ -126,6 +125,7 @@
       "application/pdf"        = "org.kde.okular.desktop";
       "image/jpeg"             = "org.kde.gwenview.desktop";
       "image/png"              = "org.kde.gwenview.desktop";
+      "inode/directory"        = "org.kde.dolphin.desktop";
       "video/mp4"              = "mpv.desktop";
       "video/x-matroska"       = "mpv.desktop";
       "x-scheme-handler/http"  = "zen.desktop";
