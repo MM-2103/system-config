@@ -46,3 +46,5 @@ alias cpuwatch="watch -n 1 'cat /proc/cpuinfo | grep \"cpu MHz\"'"
 
 alias dcrm='docker rm $(docker ps -a -q)'
 alias dcirm='docker rmi $(docker images -q)'
+
+alias todo='vim ~/todo.txt'
