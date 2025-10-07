@@ -1,0 +1,34 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "d918ebd",
+      "src": "https://github.com/Saghen/blink.cmp"
+    },
+    "gruvbox.nvim": [],
+    "mason-lspconfig.nvim": {
+      "rev": "6bdb14f"
+    },
+    "mason.nvim": {
+      "rev": "ad7146a"
+    },
+    "mini.nvim": {
+      "rev": "fbb6ad0"
+    },
+    "nvim-lspconfig": {
+      "rev": "e688b48"
+    },
+    "nvim-treesitter": {
+      "rev": "3ab4f2d2",
+      "version": "'main'"
+    },
+    "nvim-web-devicons": {
+      "rev": "b8221e4"
+    },
+    "oil.nvim": [],
+    "plenary.nvim": [],
+    "telescope.nvim": [],
+    "vim-fugitive": [],
+    "vimwiki": [],
+    "which-key.nvim": []
+  }
+}
