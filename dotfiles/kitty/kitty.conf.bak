@@ -17,6 +17,6 @@ map ctrl+shift+j move_window_backward
 # wayland_titlebar_color #222222
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark
+# Catppuccin-Mocha
 include current-theme.conf
 # END_KITTY_THEME
