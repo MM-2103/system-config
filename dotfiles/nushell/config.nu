@@ -18,6 +18,7 @@
 # them for future reference.
 $env.config.buffer_editor = "nvim"
 $env.config.show_banner = false
+$env.config.edit_mode = 'vi'
 
 # Direnv
 $env.config = {
@@ -42,5 +43,7 @@ $env.NU_LIB_DIRS = [
     '~/.config/nushell/scripts'
     ($nu.config-path | path dirname)
 ]
+
+source ~/.local/share/atuin/init.nu
 
 source ~/.zoxide.nu
