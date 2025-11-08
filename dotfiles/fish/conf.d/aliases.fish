@@ -48,3 +48,4 @@ alias dcrm='docker rm $(docker ps -a -q)'
 alias dcirm='docker rmi $(docker images -q)'
 
 alias todo='vim ~/todo.txt'
+alias todo_check="grep -v '[*+-=]' ~/todo.txt"

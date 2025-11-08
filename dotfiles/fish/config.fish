@@ -22,7 +22,7 @@ end
 direnv hook fish | source
 
 # Atuin
-atuin init fish | source
+atuin init fish | sed 's/-k up/up/' | source
 
 # Starship
 starship init fish | source
