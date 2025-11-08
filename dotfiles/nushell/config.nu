@@ -37,6 +37,7 @@ $env.config = {
 }
 
 $env.PATH = ($env.PATH | split row (char esep) | append "~/.nix-profile/bin")
+$env.PATH = ($env.PATH | split row (char esep) | append "~/.local/bin")
 
 $env.NU_LIB_DIRS = [
     ($nu.config-path | path dirname | path join 'scripts')
