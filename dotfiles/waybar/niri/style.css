@@ -23,6 +23,9 @@ tooltip {
 #cpu,
 #memory,
 #battery,
+#idle_inhibitor,
+#power-profiles-daemon,
+#bluetooth,
 #network,
 #pulseaudio {
     margin: 6px 6px 6px 0px;
@@ -71,6 +74,7 @@ tooltip {
 #cpu,
 #memory,
 #network,
+#bluetooth,
 #pulseaudio {
     background-color: #ddc7a1;
     border: 2px solid #c7ab7a;
@@ -91,3 +95,12 @@ tooltip {
     border: 2px solid #c7ab7a;
     color: #c14a4a;
 }
+#idle_inhibitor {
+    border-radius: 1rem 0px 0px 1rem;
+}
+#power-profiles-daemon {
+    background-color: #ddc7a1;
+    border: 2px solid #c7ab7a;
+    color: #1d2021;
+}
+
