@@ -57,6 +57,8 @@
         - zsh
         - zellij
         - swaync
+        - quickshell
+        - matugen
       ignore_errors: yes  # Skip if source doesn't exist
 
     - name: Symlink home-manager config
