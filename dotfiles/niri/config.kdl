@@ -107,7 +107,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1920 y=0
+    position x=0 y=0
 }
 
 output "HDMI-A-2" {
@@ -139,7 +139,7 @@ output "HDMI-A-2" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=0 y=0
+    position x=1920 y=0
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -301,7 +301,6 @@ spawn-at-startup "udiskie"
 spawn-at-startup "nm-applet"
 spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-spawn-at-startup "blueman-applet"
 spawn-at-startup "hypridle"
 spawn-at-startup "/usr/lib/hyprpolkitagent/hyprpolkitagent"
 
