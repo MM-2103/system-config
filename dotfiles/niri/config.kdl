@@ -362,6 +362,12 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match app-id=r#"\.exe$"#
+
+    open-maximized true
+}
+
 // Open Heroic and its games maximized
 window-rule {
     match app-id=r#"heroic$"#
