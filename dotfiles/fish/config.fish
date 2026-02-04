@@ -1,5 +1,5 @@
 # Path
-set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.config/composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
@@ -26,3 +26,8 @@ atuin init fish | sed 's/-k up/up/' | source
 
 # Starship
 starship init fish | source
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /home/mm-2103/.lmstudio/bin
+# End of LM Studio CLI section
+

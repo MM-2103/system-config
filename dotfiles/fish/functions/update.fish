@@ -18,6 +18,8 @@ function update
             sudo dnf upgrade --refresh
         case arch
             paru
+        case cachyos
+            paru
         case ubuntu debian
             sudo apt update && sudo apt upgrade -y
         case '*'
