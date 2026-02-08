@@ -39,6 +39,8 @@ set('n', '<leader>lg', function()
   Snacks.lazygit()
 end, { desc = '[L]azy[G]it' })
 
+set('n', '<leader>ld', vim.diagnostic.open_float, { noremap = true, silent = true })
+
 -- =====================================================================
 -- Security Keymaps
 -- =====================================================================
@@ -80,15 +82,10 @@ set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
 set('v', '<', '<gv')
 set('v', '>', '>gv')
 
--- ---------------------------------------------------------------------
--- MiniFiles helpers
--- ---------------------------------------------------------------------
-local MiniFiles = require 'mini.files'
-
 -- =====================================================================
 -- Explorer Keymaps
 -- =====================================================================
-set('n', '<leader>fe', ':lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', { noremap = true, silent = true })
+set('n', '<leader>fe', ':Oil<CR>', { noremap = true, silent = true })
 
 -- =====================================================================
 -- Search Keymaps
