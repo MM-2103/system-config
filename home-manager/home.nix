@@ -7,7 +7,7 @@
   # -------- Basic user metadata -------------------------------------
   home.username      = "mm-2103";
   home.homeDirectory = "/home/mm-2103";
-  home.stateVersion  = "25.05";
+  home.stateVersion  = "25.11";
 
   # If you want unfree software from Nixpkgs
   nixpkgs.config.allowUnfree = true;
@@ -15,28 +15,29 @@
   # ------------------------------------------------------------------
   # Packages (formerly both environment.systemPackages + home.packages)
   # ------------------------------------------------------------------
-  home.packages = with pkgs; [
-    lazygit
-    lazydocker
-    eza
-    protonvpn-gui
-    sesh
-    evil-helix
-    dysk
-    pandoc
-    atuin
-    dust
-    tealdeer
-    zoxide
-    jq
-    yq
-    rustup
-    cliphist
-    bat
-    gh
-    ripgrep
-    git-lfs
-  ];
+ home.packages = with pkgs; [
+    # lazygit
+    # lazydocker
+    # eza
+    # protonvpn-gui
+    # sesh
+    # evil-helix
+    # dysk
+    # pandoc
+    # atuin
+    # dust
+    # tealdeer
+    # zoxide
+    # jq
+    # yq
+    # rustup
+    # cliphist
+    # bat
+    # gh
+    # ripgrep
+    # git-lfs
+    devenv
+   ];
 
   # ------------------------------------------------------------------
   # Session-wide environment
