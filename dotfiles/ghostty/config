@@ -13,7 +13,7 @@ confirm-close-surface = false
 # Gruvbox
 theme = dark:Gruvbox Dark,light:Gruvbox Light
 # Solarized
-#theme = dark:Builtin Solarized Dark, light:Builtin Solarized Light
+# theme = dark:Builtin Solarized Dark, light:Builtin Solarized Light
 
 # Catppucin
 #theme = dark:catppuccin-mocha,light:catppuccin-latte
@@ -30,8 +30,5 @@ theme = dark:Gruvbox Dark,light:Gruvbox Light
 ######################
 ## End ColorSchemes ##
 ######################
-
-# Shaders
-# custom-shader = ~/git-repos/ghostty-shaders/bloom.glsl
 
 keybind = global:cmd+backquote=toggle_quick_terminal
