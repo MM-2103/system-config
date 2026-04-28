@@ -1,6 +1,9 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 # BEGIN_KITTY_FONTS
-font_family      family="IosevkaTerm Nerd Font Mono"
+font_family      family='IosevkaTerm Nerd Font Mono' postscript_name=IosevkaTermNFM
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
 # END_KITTY_FONTS
 
 confirm_os_window_close     0
@@ -17,6 +20,6 @@ map ctrl+shift+j move_window_backward
 # wayland_titlebar_color #222222
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Gruvbox Dark
 include current-theme.conf
 # END_KITTY_THEME
