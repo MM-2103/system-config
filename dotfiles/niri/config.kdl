@@ -371,6 +371,7 @@ spawn-at-startup "protonvpn-app"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 spawn-at-startup "hypridle"
 spawn-at-startup "/usr/lib/hyprpolkitagent/hyprpolkitagent"
+spawn-at-startup "swayosd-server"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
