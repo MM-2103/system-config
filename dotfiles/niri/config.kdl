@@ -155,6 +155,7 @@ output "PNP(BNQ) BenQ EX2780Q H2N00612019" {
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
     mode "2560x1440@143.999"
+    variable-refresh-rate on-demand=true
 
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
@@ -174,6 +175,38 @@ output "PNP(BNQ) BenQ EX2780Q H2N00612019" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=0 y=0
+}
+
+output "Dell Inc. DELL U2412M YPPY087K0J9U" {
+    // Uncomment this line to disable this output.
+    // off
+
+    // Resolution and, optionally, refresh rate of the output.
+    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
+    // If the refresh rate is omitted, niri will pick the highest refresh rate
+    // for the resolution.
+    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
+    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+    mode "1920x1200@59.950"
+
+
+    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+    scale 1
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "90"
+
+    // Position of the output in the global coordinate space.
+    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+    // The cursor can only move between directly adjacent outputs.
+    // Output scale and rotation has to be taken into account for positioning:
+    // outputs are sized in logical, or scaled, pixels.
+    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+    // so to put another output directly adjacent to it on the right, set its x to 1920.
+    // If the position is unset or results in an overlap, the output is instead placed
+    // automatically.
+    position x=2560 y=0
 }
 
 
@@ -386,9 +419,10 @@ window-rule {
     // - Flatpak Zen (app-id is "app.zen_browser.zen")
     match app-id=r#"zen$"# title="^Picture-in-Picture$"
 
-    open-on-output "eDP-1"
-//    open-maximized true
+    open-on-output "DP-1"
+    open-fullscreen true
     open-floating true
+    variable-refresh-rate true
 }
 
 // Open Steam and its games maximized
@@ -396,12 +430,14 @@ window-rule {
     match app-id=r#"steam$"#
 
     open-maximized true
+    variable-refresh-rate true
 }
 
 window-rule {
     match app-id=r#"\.exe$"#
 
     open-maximized true
+    variable-refresh-rate true
 }
 
 // Open Heroic and its games maximized
@@ -409,6 +445,7 @@ window-rule {
     match app-id=r#"heroic$"#
 
     open-maximized true
+    variable-refresh-rate true
 }
 
 window-rule {
@@ -467,12 +504,12 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "pamixer" "-i" "5"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "pamixer" "-d" "5"; }
-    XF86AudioMute        allow-when-locked=true { spawn "pamixer" "-t"; }
-    XF86AudioNext        allow-when-locked=true { spawn "playerctl" "next"; }
-    XF86AudioPrev        allow-when-locked=true { spawn "playerctl" "previous"; }
-    XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioMute        allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86AudioNext        allow-when-locked=true { spawn "swayosd-client" "--playerctl" "next"; }
+    XF86AudioPrev        allow-when-locked=true { spawn "swayosd-client" "--playerctl" "previous"; }
+    XF86AudioPlay        allow-when-locked=true { spawn "swayosd-client" "--playerctl" "play-pause"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+Shift+C { close-window; }
@@ -717,4 +754,12 @@ cursor {
 
     hide-when-typing
     hide-after-inactive-ms 10000
+}
+
+blur {
+    // off
+    passes 3
+    offset 3
+    noise 0.02
+    saturation 1.5
 }
