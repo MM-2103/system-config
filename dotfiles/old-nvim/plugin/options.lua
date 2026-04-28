@@ -93,7 +93,7 @@ opt.softtabstop = 4
 opt.shortmess:append { W = true, I = true, c = true }
 opt.sidescrolloff = 8 -- Columns of context
 opt.smartcase = true -- Don't ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
+opt.autoindent = true -- Insert indents automatically
 opt.spelllang = { 'en' }
 opt.termguicolors = true -- True color support
 opt.undolevels = 10000

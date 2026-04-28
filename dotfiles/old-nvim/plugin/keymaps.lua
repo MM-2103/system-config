@@ -221,6 +221,8 @@ end, { desc = '[S]earch Buffer [D]iagnostics' })
 --   Snacks.picker.registers()
 -- end, { desc = '[S]earch [R]egisters' })
 
+set('n', '<leader>hx', '<cmd>!chmod +x %<cr>', { desc = '[H]arden: Make Executable' })
+
 -- =====================================================================
 -- export
 -- =====================================================================
