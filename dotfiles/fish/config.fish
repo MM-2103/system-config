@@ -19,7 +19,7 @@ if test -f ~/dotfiles/fish/conf.d/env.fish
 end
 
 # Direnv
-direnv hook fish | source
+# direnv hook fish | source
 
 # Atuin
 atuin init fish | sed 's/-k up/up/' | source
