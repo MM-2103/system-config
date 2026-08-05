@@ -17,7 +17,7 @@
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "6bdb14f230de0904229ec367b410fb817e59b072",
+      "rev": "6bdb14f",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "e688b486fe9291f151eae7e5c0b5a5c4ef980847",
+      "rev": "e688b48",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -38,7 +38,7 @@
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "b8221e42cf7287c4dcde81f232f58d7b947c210d",
+      "rev": "b8221e4",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -46,11 +46,11 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "telescope.nvim": {
-      "rev": "b4da76be54691e854d3e0e02c36b0245f945c2c7",
+      "rev": "b4da76b",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "vim-fugitive": {
