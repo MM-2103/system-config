@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import ctypes
 import fcntl
+import glob
 import json
 import os
 import re
@@ -112,14 +113,19 @@ class VBlankReader:
 # --------------------------------------------------------------------------
 # KMS properties
 # --------------------------------------------------------------------------
+
+def _proptest_raw() -> str:
+    try:
+        return subprocess.run(["proptest", "-M", "amdgpu"], capture_output=True,
+                              text=True, timeout=20).stdout
+    except Exception:
+        return ""
+
 def read_kms():
     """Parse proptest output into {connector: {...}} plus CRTC VRR state."""
-    try:
-        raw = subprocess.run(
-            ["proptest", "-M", "amdgpu"], capture_output=True, text=True, timeout=20
-        ).stdout
-    except Exception as e:
-        return {}, {}, f"proptest failed: {e}"
+    raw = _proptest_raw()
+    if not raw:
+        return {}, {}, "proptest produced no output"
 
     connectors = {}
     for m in re.finditer(r"^Connector (\d+) \(([^)]+)\)(.*?)(?=^Connector |\Z)", raw, re.M | re.S):
@@ -197,16 +203,37 @@ def hypr_state():
 # --------------------------------------------------------------------------
 # Reporting
 # --------------------------------------------------------------------------
+def connected_connectors():
+    """Connector names in KMS order that are actually connected.
+
+    Compositor-independent -- used as a fallback so this tool still works
+    outside Hyprland (e.g. when comparing against KWin).
+    """
+    out = []
+    for name in re.findall(r"^Connector \d+ \(([^)]+)\)", _proptest_raw(), re.M):
+        paths = glob.glob(f"/sys/class/drm/card*-{name}")
+        if not paths:
+            continue
+        try:
+            if open(os.path.join(paths[0], "status")).read().strip() == "connected":
+                out.append(name)
+        except OSError:
+            pass
+    return out
+
+
 def pipe_map(mons, pipes):
     """Map DRM pipe index -> connector name.
 
     AMD assigns pipes in connector order, so pipe N corresponds to the Nth
-    *enabled* monitor as Hyprland lists them by id. Verified against measured
-    refresh on this machine, but it is an assumption -- if the names look
-    swapped, that is why.
+    connected connector. Verified on this machine against measured refresh
+    (DP-1 -> pipe 0 @240 Hz, DP-2 -> pipe 1 @60 Hz).
     """
-    ordered = sorted([m for m in mons if not m.get("disabled")], key=lambda m: m["id"])
-    return {p: (ordered[i]["name"] if i < len(ordered) else f"pipe{p}") for i, p in enumerate(pipes)}
+    ordered = [m["name"] for m in sorted(
+        [m for m in mons if not m.get("disabled")], key=lambda m: m["id"])]
+    if not ordered:  # no hyprctl -- fall back to KMS
+        ordered = connected_connectors()
+    return {p: (ordered[i] if i < len(ordered) else f"pipe{p}") for i, p in enumerate(pipes)}
 
 
 def cmd_snapshot(_args):
@@ -324,6 +351,10 @@ def cmd_watch(args):
     hzs = [h for _, h in samples]
     mean = statistics.fmean(hzs)
     sd = statistics.pstdev(hzs) if len(hzs) > 1 else 0.0
+    srt = sorted(hzs)
+    pct = lambda p: srt[min(len(srt) - 1, max(0, int(round(p / 100 * (len(srt) - 1)))))]
+    p1, p50, p99 = pct(1), pct(50), pct(99)
+
     print(f"\n  {'-'*66}")
     print(f"  REFRESH RATE over {args.secs}s ({len(hzs)} samples)")
     print(f"    mean {mean:8.2f} Hz")
@@ -331,9 +362,68 @@ def cmd_watch(args):
     print(f"    max  {max(hzs):8.2f} Hz")
     print(f"    range{max(hzs)-min(hzs):8.2f} Hz")
     print(f"    stdev{sd:8.2f} Hz")
+    print(f"    p1   {p1:8.2f} Hz   p50 {p50:7.2f}   p99 {p99:7.2f}")
 
     print(f"\n  {_sparkline(hzs)}")
 
+    # Distribution shape matters more than the summary stats. A single broad
+    # hump = the game's own frame rate varying. Two or more clusters = extra
+    # presenters (compositor, overlays) driving the panel independently, in
+    # which case capping the game alone will NOT flatten the refresh.
+    print(f"\n  DISTRIBUTION")
+    lo, hi = min(hzs), max(hzs)
+    nb = 12
+    if hi - lo > 1e-6:
+        width = (hi - lo) / nb
+        bins = [0] * nb
+        for h in hzs:
+            bins[min(nb - 1, int((h - lo) / width))] += 1
+        peak = max(bins) or 1
+        for i, c in enumerate(bins):
+            a, b = lo + i * width, lo + (i + 1) * width
+            bar = "#" * int(round(40 * c / peak))
+            pctg = 100 * c / len(hzs)
+            print(f"    {a:6.0f}-{b:<6.0f} {bar:<40} {pctg:5.1f}%")
+
+    # With VRR active the panel tracks the presented frame rate, so this
+    # distribution IS the frame rate distribution. The 1st percentile is the
+    # practical floor -- cap below it and the cap always holds, which keeps
+    # refresh flat and makes OLED VRR flicker impossible.
+    nominal = 240.0
+    for m in (hypr("monitors") or []):
+        if m["name"] == args.monitor:
+            nominal = m["refreshRate"]
+    divisors = [d for d in (240, 120, 96, 80, 60, 48, 40) if abs(nominal - 240) < 5]
+    if not divisors:
+        divisors = [int(nominal / n) for n in range(1, 7)]
+    print()
+    if max(hzs) - min(hzs) > 3.0:
+        # A cap only stabilises the refresh while the GPU can actually meet it.
+        # Below the cap the panel free-runs again, so what matters is how OFTEN
+        # you'd fall short and how far -- not merely whether p1 clears the cap.
+        print("  FRAME CAP OPTIONS")
+        print(f"    {'cap':>6}  {'below cap':>10}  {'residual swing':>15}   verdict")
+        print("    " + "-" * 62)
+        for d in sorted(divisors, reverse=True):
+            if d > max(hzs):
+                continue
+            miss = [h for h in hzs if h < d - 0.5]
+            pctm = 100 * len(miss) / len(hzs)
+            swing = (d - min(miss)) if miss else 0.0
+            if pctm < 2:
+                v = "flat -- no flicker possible"
+            elif swing < 8:
+                v = "tiny dips, very likely fine"
+            elif pctm < 25:
+                v = "occasional dips"
+            else:
+                v = "still modulating -- too high"
+            print(f"    {d:>6}  {pctm:9.1f}%  {swing:14.1f}Hz   {v}")
+        print()
+        print(f"    'below cap' = share of time the GPU could not sustain it.")
+        print(f"    'residual swing' = how far refresh would still travel underneath it.")
+        print(f"    Divisors of {nominal:.0f} are used so that if VRR ever drops out you")
+        print(f"    still land on exact VSync cadence.")
     print()
     if sd < 1.0 and (max(hzs) - min(hzs)) < 3.0:
         print("  VERDICT: refresh is STABLE.")
