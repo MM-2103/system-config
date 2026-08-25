@@ -66,14 +66,49 @@ end
 -- If a named monitor is not connected, Hyprland falls back to placing the
 -- workspace on an available one -- which is the desired single-screen
 -- behaviour, so the unplugged laptop outputs need no special handling.
+--
+-- Slot 1 of each block is marked `default`, which is what a monitor gets at
+-- session start. Without it Hyprland has to invent one: it takes the lowest
+-- id not pinned to some *other* monitor, and since this scheme pins 1..9 and
+-- 11..19 while leaving `stride` itself (10) unowned, the second monitor came
+-- up on workspace 10 every boot. That workspace belongs to no block, so:
+--
+--   * it sorted ahead of 11 in the bar, showing a stray "10" chip to the
+--     left of "1";
+--   * Mod+N could never return to it, because those resolve to base+1..base+9
+--     and nothing maps to 10 -- only clicking the chip worked, since the bar
+--     dispatches the raw id;
+--   * emptying it made the problem vanish, workspaces being dynamic.
+--
+-- `(n == 1) or nil` leaves the key absent on the other slots rather than
+-- passing an explicit false.
 
 for name, base in pairs(M.base) do
   for n = 1, M.count do
     hl.workspace_rule({
       workspace = tostring(base + n),
       monitor   = name,
+      default   = (n == 1) or nil,
     })
   end
 end
+
+-- DO NOT set `default_name` here to the per-monitor slot number (1..9) as a way
+-- of feeding labels to a status bar. It parses and applies correctly, but
+-- workspace names are a *global* namespace in Hyprland, and naming both DP-1's
+-- workspace 1 and DP-2's workspace 11 "1" makes them indistinguishable to every
+-- name-based consumer.
+--
+-- The legacy IPC events are name-based and become ambiguous:
+--
+--   focusedmon>>DP-2,1       <- which "1"? DP-1's or DP-2's?
+--   focusedmonv2>>DP-2,11    <- the v2 events carry the id, so these are fine
+--
+-- Observed fallout: the bar re-parented DP-1's workspace onto DP-2, so the Dell
+-- showed two chips labelled "1" and the LG showed none until it was refocused.
+--
+-- Bars therefore have to derive the per-monitor label from the id themselves.
+-- quickshell-bar does that in compositor/BackendHyprland.qml, which keeps its
+-- own copy of `stride` -- change M.stride above and that must change too.
 
 return M
