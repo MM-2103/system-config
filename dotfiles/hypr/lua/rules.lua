@@ -130,6 +130,48 @@ hl.window_rule({
   content = "game",
 })
 
+-- ---------------------------------------------------------------------------
+-- Games that do NOT self-report their content type
+-- ---------------------------------------------------------------------------
+-- Wayland clients are supposed to declare a content type; plenty of games
+-- (especially under wine/Proton) never do, and arrive as 'none'. Hyprland's
+-- "auto" modes then treat them as ordinary windows:
+--
+--   render.direct_scanout   = 2  -> auto, only for content type 'game'
+--   cursor.no_break_fs_vrr  = 2  -> auto, only for content type 'game'
+--
+-- With scanout blocked, the compositor composites every frame and presents at
+-- its OWN rate rather than the game's. Measured on FFXIV in Limsa: the game
+-- reported 49-70 fps while the panel was re-clocked at a median of 90 Hz,
+-- peaking at 199 -- i.e. roughly double, driven by the compositor.
+--
+-- With VRR that is a direct cause of OLED flicker, and it means an in-game
+-- frame cap cannot stabilise the refresh: the game is not what is driving it.
+--
+-- `content` is a STATIC rule, applied when the window opens, so the game must
+-- be restarted for it to take effect.
+--
+-- Verify with:  scripts/display-probe.py snapshot   (directScanoutBlockedBy)
+--
+-- !! CAVEAT for FFXIV specifically !!
+-- Tagging it `game` also opts it INTO VRR (monitors.lua uses vrr = 3, which
+-- gates on content type). Measured frame rate in crowded Limsa is 49-70 fps,
+-- which straddles the kernel BTR hysteresis band (engages below ~51.1 fps,
+-- releases above ~58.5 fps). Crossing that boundary steps the refresh by
+-- 2-3x, which is a far bigger flicker event than ordinary VRR modulation.
+--
+-- So if FFXIV flickers, pick one:
+--   a) drop this rule       -> no VRR for FFXIV, panel stays at a flat 240 Hz
+--   b) cap the game at 48   -> BTR always on, stable 96 Hz (2x)
+--   c) lower settings so the floor stays above ~52 fps -> BTR never engages
+-- Do NOT cap at 60 -- that sits directly on the BTR release threshold.
+-- See the VRR note in lua/monitors.lua for the measurements.
+hl.window_rule({
+  name    = "ffxiv-content-type",
+  match   = { class = "^ffxiv_dx11\\.exe$" },
+  content = "game",
+})
+
 -- If you ever want tearing for competitive games, set
 -- `general.allow_tearing = true` in lua/look.lua and uncomment this:
 -- hl.window_rule({
