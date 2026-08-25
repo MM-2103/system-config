@@ -17,7 +17,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("qs -p " .. QS_PATH .. " -d")
 
   -- Polkit authentication agent.
-  hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
+  -- hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
   -- Automount removable media.
   hl.exec_cmd("udiskie")
@@ -28,7 +28,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("wl-paste --watch cliphist store")
 
   -- Idle -> lock -> DPMS. See ../hypridle.conf.
-  hl.exec_cmd("hypridle")
+  -- hl.exec_cmd("hypridle")
 end)
 
 -- ---------------------------------------------------------------------------
