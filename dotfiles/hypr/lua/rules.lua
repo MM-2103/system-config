@@ -69,10 +69,25 @@ hl.window_rule({
 -- floating at its client-requested size, straddling the monitor boundary.
 -- Verified: unpinning the live window immediately snapped it to
 -- at=[2560,0] size=[1200x1920], i.e. exactly filling the rotated Dell.
+--
+-- niri opened this floating, but do NOT restore `float = true` here either.
+-- Hyprland has two fullscreen handlers, and floating windows always get the
+-- `default` one, which un-fullscreens the window as soon as focus leaves it --
+-- so a PiP would cover the Dell and could not be looked away from without
+-- being closed. Tiled windows on a scrolling workspace instead get the
+-- `scrolling` handler, whose whole purpose is to let you scroll away from a
+-- fullscreen window without dropping its fullscreen state. That is what makes
+-- it possible to glance at the terminal next to the video and scroll back.
+--
+-- The handler is not selectable from a window rule: `layout_aware` exists only
+-- as an argument to the fullscreen *dispatchers*. It follows from the window
+-- being tiled, which is why this rule simply omits `float`.
+--
+-- Check which handler a window ended up with via `fullscreenHandler` in
+-- `hyprctl clients -j`.
 hl.window_rule({
   name       = "zen-pip",
   match      = { class = "zen$", title = "^Picture-in-Picture$" },
-  float      = true,
   fullscreen = true,
   monitor    = "DP-2",
 })
