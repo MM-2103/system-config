@@ -54,7 +54,7 @@ hl.monitor({
   scale    = 1,
   bitdepth = 10,
   cm       = "srgb", -- see note above; "auto" would silently become "wide"
-  vrr      = 0,      -- OFF -- see "VRR" note at the bottom of this file
+  vrr      = 3,      -- fullscreen AND content-type game/video -- see note at bottom
 
   -- The EDID already reports these correctly, so they're left commented.
   -- Uncomment to override if HDR tone mapping looks wrong:
@@ -117,26 +117,117 @@ hl.monitor({
 -- ---------------------------------------------------------------------------
 -- VRR / Adaptive-Sync on DP-1
 -- ---------------------------------------------------------------------------
--- Disabled (`vrr = 0`). Measured with scripts/display-probe.py, sampling the
--- DRM vblank counter on the CRTC:
+-- Set to 3: VRR only for fullscreen windows whose content type is `game` or
+-- `video`. Mode 2 ("any fullscreen window") caused severe OLED flicker.
 --
---   vrr = 2 (on):   mean 202.39 Hz, min 187.20, max 238.68, stdev 11.08
---   vrr = 0 (off):  mean 239.93 Hz, min 239.93, max 239.93, stdev  0.00
+-- WHY. This panel's brightness shifts slightly with the refresh interval, so
+-- flicker tracks how much the refresh MOVES, not whether VRR is on. LG's own
+-- OSD help text says: "Note that the screen flickering may occur
+-- intermittently in a specific gaming environment."
 --
--- With VRR on, the panel is re-clocked across a ~51 Hz range continuously.
--- OLED luminance depends slightly on refresh interval, so that shows up as
--- brightness flicker. LG's own OSD help text for Adaptive-Sync says: "Note
--- that the screen flickering may occur intermittently in a specific gaming
--- environment."
+-- All figures below are measured, via the DRM vblank counter on the CRTC
+-- (scripts/display-probe.py). Fullscreen YouTube in Zen:
 --
--- The cost of disabling it is small here: 240 Hz divides evenly by 60, 80 and
--- 120, so a capped framerate on any of those gives perfect frame cadence with
--- no tearing and no judder.
+--   vrr = 2   mean 172.27 Hz   range 128.5 Hz   stdev 28.49   <- flickers badly
+--   vrr = 3   mean 239.84 Hz   range   7.5 Hz   stdev  0.75   <- flat, no flicker
+--
+-- Mode 2 is a problem because Hyprland presents ON DAMAGE. A composited
+-- fullscreen browser repaints erratically (video frames, page repaints, UI),
+-- so the presentation rate swings wildly and VRR follows it.
+--
+-- KWin, for reference, uses the SAME policy -- `Window::wantsAdaptiveSync()`
+-- is literally `isFullScreen()` -- yet does not flicker, because it composites
+-- at the output's fixed refresh rate. Measured under Plasma on the same video:
+-- VRR_ENABLED=1, stdev 1.30. So the difference is presentation cadence, not
+-- VRR policy. Hyprland's vrr=3 ends up marginally steadier than Plasma here.
+--
+-- BENCHMARK vs KWin (scripts/vrr-bench.py, 6 clips x 15s, identical files,
+-- constant average picture level so the panel's ABL cannot contaminate it,
+-- measured from true per-vblank timestamps -- not averaged):
+--
+--                      d_mean    d_p99     hz_sd
+--   hyprland            8.69     139.6      22.6
+--   hyprland (no bar)   4.88      90.1      16.2
+--   plasma (KWin)       1.92       7.4       1.4
+--   idle floor          0.09       0.7       0.09
+--
+-- d_mean = mean |change in refresh between consecutive frames|, i.e. the
+-- quantity an OLED turns into visible brightness change. KWin won all six
+-- clips; Hyprland is ~4.5x less stable, ~2.5x even with the bar killed.
+--
+-- WHY -- and note the frame multiplication is NOT the compositor's doing.
+--
+-- LFC is implemented in the KERNEL as AMD "BTR" (Below The Range):
+--   drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+--     :: apply_below_the_range()
+--   enabled unconditionally via `config.btr = true` in amdgpu_dm.c
+-- KWin has NO such code and an explicit `// TODO` saying so
+-- (src/core/renderloop.cpp). Its maintainer: "we do not have driver APIs yet
+-- to implement that". So BTR runs under Hyprland too -- Hyprland's erratic
+-- presentation simply defeats it before it can settle.
+--
+-- BTR does not pick "the smallest multiple above the VRR floor". It picks the
+-- multiplier whose frame duration lands nearest the MIDPOINT of the VRR range
+-- (btr.mid_point_in_us). For 48-240 Hz that midpoint is 80.0 Hz.
+--
+-- Verified by falsification test (scripts/vrr-bench.py, KWin, 15s per clip).
+-- Three clips where the two models disagree, plus two controls:
+--
+--   clip   measured   BTR model   "smallest multiple above floor"
+--   20fps    80.01     80.0 (4x)      60.0     <- BTR correct
+--   25fps    75.00     75.0 (3x)      50.0     <- BTR correct
+--   26fps    78.01     78.0 (3x)      52.0     <- BTR correct
+--   40fps    80.02     80.0 (2x)      80.0     control, both agree
+--   55fps    55.01     55.0 (1x)      55.0     control, BTR inactive
+--
+-- and it reproduces the original six to <=0.04 Hz:
+--   24 -> 72.01 (3x)   30 -> 90.01 (3x)   48 ->  96.02 (2x)
+--   60 -> 60.01 (1x)   90 -> 90.03 (1x)  120 -> 120.04 (1x)
+--
+-- !! BTR HYSTERESIS -- THIS IS THE PRACTICALLY IMPORTANT BIT !!
+--   engages  when frame time > 19583 us  (below ~51.1 fps)
+--   releases when frame time < 17083 us  (above ~58.5 fps)
+-- Crossing that boundary changes the refresh by a factor of 2-3x INSTANTLY.
+-- Those are not jitter, they are step changes, and they are almost certainly
+-- what the d_p99 = 115-170 Hz outliers in the Hyprland runs actually are.
+--
+-- So 51-58 fps is the WORST band to sit in. For any capped game either:
+--   * keep the floor above ~52 fps  -> BTR never engages, or
+--   * cap at 48 fps                 -> BTR always on, stable 2x = 96 Hz
+--     (measured on KWin: 96.02 Hz, sd 1.66 -- the panel runs at 96, not 48)
+-- Do NOT cap at 60: that sits directly on the release threshold.
+--
+-- The quickshell bar accounts for roughly 44% of Hyprland's instability
+-- (8.69 -> 4.88 with it killed), so it is a contributor but not the cause.
+--
+-- PERCEPTUAL NOTE: none of these clips flickered visibly, on either
+-- compositor. So d_mean ~8.7 with flat mid-grey content is below the
+-- perception threshold here. The known-flickering case (fullscreen YouTube
+-- under vrr=2) has not yet been measured with this instrument, so there is
+-- no calibrated threshold -- only a confirmed "not visible at 8.7".
+--
+-- THINGS THAT DID NOT WORK (all measured, ~18s each, same video):
+--   baseline (ds=2, no_break_fs_vrr=2)   stdev 23.71
+--   render.direct_scanout      = 1       stdev 22.58
+--   cursor.no_break_fs_vrr     = 1       stdev 24.21
+--   both                       = 1       stdev 24.04
+-- direct_scanout=1 does clear the CONTENT blocker, but `CANDIDATE` remains:
+-- the browser's surface simply is not scanout-eligible, so it stays
+-- composited no matter what. Don't re-litigate this.
+--
+-- CONSEQUENCE. Most wine/Proton games report contentType 'none', so they get
+-- NO VRR under mode 3 unless explicitly tagged. That is deliberate -- an
+-- opt-in whitelist. See the `content = "game"` rules in lua/rules.lua.
+--
+-- Tagged games still need a frame cap to stay flicker-free, because VRR then
+-- tracks their frame rate. Rule of thumb: cap at the largest divisor of 240
+-- (240/120/80/60/48) that sits below your 1% low, and use
+-- `display-probe.py watch` to confirm the resulting stdev is near zero.
 --
 -- !! GOTCHA !! Changing `vrr` at runtime frequently does NOT take effect.
 -- Hyprland calls setAdaptiveSync() and, if the atomic commit is rejected,
 -- silently reverts it (DEBUG log only, and logs are off by default). Neither
--- `hyprctl reload` nor a DPMS cycle reliably forces it. What does work is a
+-- `hyprctl reload` nor a DPMS cycle reliably forces it. What DOES work is a
 -- full modeset -- e.g. toggling `cm` or `bitdepth` in the same rule.
 --
 -- Never trust `hyprctl monitors -> vrr`, the monitor's OSD indicator, or this

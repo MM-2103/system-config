@@ -82,14 +82,29 @@ hl.config({
     middle_click_paste      = false,
 
     -- niri: `variable-refresh-rate on-demand=true` plus per-window VRR rules.
-    -- 2 = enable VRR only for fullscreen windows.
-    vrr                     = 2,
+    -- 3 = fullscreen AND content type game/video. Mode 2 ("any fullscreen
+    -- window") flickers badly on the OLED -- see the VRR note in
+    -- lua/monitors.lua. DP-1 overrides this per-monitor anyway; kept in sync
+    -- so the two files don't disagree.
+    vrr                     = 3,
   },
 
   cursor = {
     -- niri: `cursor { hide-when-typing; hide-after-inactive-ms 10000 }`
     hide_on_key_press = true,
     inactive_timeout  = 10,
+
+    -- Keepalive floor for cursor-driven frames while VRR is active.
+    -- Hyprland's DEFAULT IS 24 -- which is BELOW this panel's 48 Hz VRR floor,
+    -- so the cursor keepalive can push the display under the FreeSync minimum
+    -- and force the kernel's BTR frame-doubling to engage. BTR engaging is a
+    -- 2-3x step change in refresh, i.e. a large, very visible flicker event
+    -- rather than gentle modulation.
+    --
+    -- KWin uses `EDID minVrrRefreshRateHz + 2` for exactly this purpose
+    -- (kwin commit e440aac04b, "help with vrr flicker when the min refresh
+    -- rate is higher than 30Hz"). 50 is that value for this panel.
+    min_refresh_rate  = 50,
   },
 
   render = {
