@@ -16,10 +16,26 @@ hl.config({
     -- niri: `border { width 2; active-color "#ffc87f"; inactive-color "#505050" }`
     -- with `focus-ring { off }`. The old hyprland.conf's cyan/green gradient
     -- is intentionally dropped -- niri is the source of truth.
+    --
+    -- Both colours are dimmed from niri's values for the OLED on DP-1. The
+    -- active border is a persistent lit element: thin, but it traces the same
+    -- window edges for hours. niri's #ffc87f sits at 64% relative luminance;
+    -- #d1a05f is 39.5%, a 38% cut, and deliberately matches the 39.2% of the
+    -- bar's accent so both focus indicators carry the same weight.
+    --
+    -- The inactive border is dimmed alongside it purely to preserve the
+    -- affordance -- what makes focus readable is the RATIO between the two,
+    -- not the absolute brightness of the active one:
+    --
+    --   niri      #ffc87f / #505050  -> 5.31:1
+    --   here      #d1a05f / #343434  -> 5.28:1
+    --
+    -- See ~/.config/quickshell-bar/themes/oled-guard.jsonc for the matching
+    -- bar palette and the reasoning behind the luminance targets.
     border_size      = 2,
     col              = {
-      active_border   = "rgb(ffc87f)",
-      inactive_border = "rgb(505050)",
+      active_border   = "rgb(d1a05f)",
+      inactive_border = "rgb(343434)",
     },
 
     resize_on_border = false,
