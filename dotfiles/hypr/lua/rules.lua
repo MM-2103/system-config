@@ -172,6 +172,29 @@ hl.window_rule({
   content = "game",
 })
 
+-- Run fullscreen games through gamescope:
+--
+--     gamescope -f -W 2560 -H 1440 -r 240 -- %command%
+--
+-- Launched plain, a fullscreen game blanks the screen for about a second
+-- every time anything draws over it (volume OSD, alt-tab) and again when that
+-- thing leaves. Direct scanout hands the plane the game's 8 bpc buffer while
+-- the compositor's own is 10 bpc, and changing the plane's pixel format needs
+-- a modeset, so the link retrains. Not fixable from this config: amdgpu
+-- rejects the format change without ALLOW_MODESET.
+--
+-- gamescope hands over XBGR2101010 instead. The format still flips, but 10 bpc
+-- to 10 bpc leaves the link alone, so it is a short flicker rather than a
+-- blackout.
+--
+-- The window arrives as class `gamescope`, which misses the steam_app rule
+-- above, so tag it here or it gets neither scanout nor VRR.
+hl.window_rule({
+  name    = "gamescope-content-type",
+  match   = { class = "^gamescope$" },
+  content = "game",
+})
+
 -- If you ever want tearing for competitive games, set
 -- `general.allow_tearing = true` in lua/look.lua and uncomment this:
 -- hl.window_rule({
