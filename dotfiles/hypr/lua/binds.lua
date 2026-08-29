@@ -64,13 +64,20 @@ hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm stop"),
 hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("uwsm stop"),
   { description = "Quit Hyprland" })
 
--- niri: `power-off-monitors`. The wiki warns against binding DPMS directly,
--- as the key release can immediately wake the display again; deferring it by
--- half a second through a one-shot timer is the documented workaround.
+-- niri: `power-off-monitors`.
+--
+-- The screens only come back because `misc.key_press_enables_dpms` and
+-- `misc.mouse_move_enables_dpms` are set in lua/look.lua. Both default to
+-- false, and with them off this bind is a one-way door -- see the note there.
+--
+-- That is also why the dispatch is deferred: the SUPER+SHIFT release is
+-- itself a key event, so firing dpms off immediately means the release wakes
+-- the panels a few milliseconds later. One second is enough slack for a
+-- deliberate press; 500ms was not.
 hl.bind(mainMod .. " + SHIFT + P", function()
   hl.timer(function()
     hl.dispatch(hl.dsp.dpms({ action = "off" }))
-  end, { timeout = 500, type = "oneshot" })
+  end, { timeout = 1000, type = "oneshot" })
 end, { description = "Power off monitors" })
 
 -- niri: `toggle-keyboard-shortcuts-inhibit`. Hyprland has no such action, so

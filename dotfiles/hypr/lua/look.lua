@@ -81,6 +81,17 @@ hl.config({
     -- niri: `clipboard { disable-primary }`
     middle_click_paste      = false,
 
+    -- Hyprland defaults BOTH of these to false, which makes `dpms off` a
+    -- one-way door: neither a key nor the mouse brings the outputs back, and
+    -- the only way out is replugging the DP cable. niri had no such trap --
+    -- its `power-off-monitors` always woke on input.
+    --
+    -- These make the delay on the Mod+Shift+P bind (lua/binds.lua)
+    -- load-bearing: without it, releasing SUPER+SHIFT turns the screens
+    -- straight back on. Do not remove one without the other.
+    key_press_enables_dpms  = true,
+    mouse_move_enables_dpms = true,
+
     -- niri: `variable-refresh-rate on-demand=true` plus per-window VRR rules.
     -- 3 = fullscreen AND content type game/video. Mode 2 ("any fullscreen
     -- window") flickers badly on the OLED -- see the VRR note in
