@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["@ex-machina/opencode-anthropic-auth@1.8.1"],
+
+  // Deny-only rules on purpose. No "*" entries here, so opencode's own
+  // defaults still apply underneath (read allow, bash allow,
+  // external_directory ask, *.env ask). These append after the defaults
+  // and the last matching rule wins, so they override only these paths.
+  "permission": {
+    "read": {
+      "~/.ssh/*": "deny",
+      "~/.gnupg/*": "deny",
+      "~/.claude.json": "deny",
+      "~/.claude/.credentials.json": "deny",
+      "~/.local/share/opencode/auth.json": "deny"
+    },
+
+    "edit": {
+      "~/.ssh/*": "deny",
+      "~/.gnupg/*": "deny",
+      "~/.claude.json": "deny",
+      "~/.claude/.credentials.json": "deny",
+      "~/.local/share/opencode/auth.json": "deny"
+    },
+
+    // Matches the parsed command string, not a path. Accident prevention,
+    // not a security boundary: base64, variable expansion and wildcard
+    // globs all route around it.
+    "bash": {
+      "*id_rsa*": "deny",
+      "*.credentials.json*": "deny",
+      "*.local/share/opencode/auth.json*": "deny",
+      "*/.gnupg/*": "deny"
+    },
+
+    // Default for "*" is already "ask"; left undeclared so opencode's
+    // allow rules for its own tmp and tool-output dirs survive.
+    "external_directory": {
+      "~/cookies.txt": "deny",
+      "~/.ssh/*": "deny",
+      "~/.gnupg/*": "deny"
+    }
+  }
+}
