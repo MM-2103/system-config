@@ -1,5 +1,5 @@
 # Path
-set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.config/composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "$HOME/dotfiles/emacs/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.config/composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
@@ -13,9 +13,12 @@ set -x MANPAGER "nvim +Man!"
 # Default Editor
 set EDITOR "nvim"                               # $EDITOR use Emacs in terminal
 
-# Export env variables
-if test -f ~/dotfiles/fish/conf.d/env.fish
-    source ~/dotfiles/fish/conf.d/env.fish
+# Machine-local env vars and API keys.
+# Kept outside ~/.config/fish because that path is a symlink into the
+# system-config git repo, so anything stored there would get committed.
+# The file is optional and does not exist yet.
+if test -f ~/.config/fish-local.fish
+    source ~/.config/fish-local.fish
 end
 
 # Direnv
