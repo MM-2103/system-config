@@ -26,6 +26,14 @@ vim.o.expandtab = true
 -- any mapping that is a prefix of another, which silently breaks motions.
 vim.o.timeoutlen = 500
 
+-- Spelling. English ships with Nvim, so there is nothing to download.
+-- Enabled per filetype further down, not globally: in code the speller flags
+-- technical vocabulary and little else.
+vim.o.spelllang = "en_us"
+vim.o.spelloptions = "camel"
+-- Where `zg` writes. Inside the config repo, so the word list is versioned.
+vim.o.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+
 -- ---------------------------------------------------------------------------
 -- Globals
 -- ---------------------------------------------------------------------------
@@ -190,6 +198,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("spell-prose", { clear = true }),
+	desc = "Enable spell checking for prose filetypes",
+	pattern = { "markdown", "text", "gitcommit", "tex", "typst" },
+	callback = function()
+		vim.opt_local.spell = true
+	end,
+})
+
 -- ---------------------------------------------------------------------------
 -- Editor plugins
 -- ---------------------------------------------------------------------------
@@ -243,10 +260,15 @@ require("mason").setup()
 -- mason-lspconfig's `automatic_enable` calls `vim.lsp.enable()` for each.
 -- Only add an explicit `vim.lsp.enable()` for servers installed outside mason.
 require("mason-lspconfig").setup({
+	-- The `stylua` Mason package is installed below for conform, but it also
+	-- maps to an lspconfig server, so `automatic_enable` would start
+	-- `stylua --lsp` on every Lua buffer to redo what conform already does.
+	automatic_enable = { exclude = { "stylua" } },
 	ensure_installed = {
 		"basedpyright",
 		"clangd",
 		"gopls",
+		"harper_ls",
 		"html",
 		"lua_ls",
 		"nil_ls",
@@ -324,6 +346,27 @@ vim.lsp.config("ruff", {
 	end,
 })
 
+-- Grammar checking on top of the built-in speller. lspconfig defaults harper
+-- to 30 filetypes including lua, python, php, nix and go, where it flags
+-- camelCase and project identifiers as misspellings. Keep it to prose, which
+-- is what Harper's own docs recommend. "Add to dictionary" is a code action,
+-- so use `gra` on a flagged word (separate from vim's `zg`).
+vim.lsp.config("harper_ls", {
+	filetypes = { "markdown", "text", "gitcommit", "tex", "typst" },
+	settings = {
+		["harper-ls"] = {
+			dialect = "American",
+			linters = {
+				-- Fights conventional commit subjects like "fix: handle empty input".
+				SentenceCapitalization = false,
+				LongSentences = false,
+				-- Wants "Meeting Notes"; sentence case is the house style.
+				UseTitleCase = false,
+			},
+		},
+	},
+})
+
 -- Nvim ships with virtual text and virtual lines both off.
 vim.diagnostic.config({
 	severity_sort = true,
@@ -395,3 +438,14 @@ map("L", "<Cmd>bnext<CR>", "Next buffer")
 
 map("<Esc>", "<Cmd>nohlsearch<CR>", "Clear search highlight")
 map("<C-z>", "<Nop>", "Disable suspend")
+
+-- mini.basics already binds `\s` to toggle 'spell'; `\S` follows that pattern.
+-- Buffer-local, so switching one file to Dutch leaves the rest on English.
+map("z=", function()
+	MiniExtra.pickers.spellsuggest()
+end, "Spelling suggestions")
+map("\\S", function()
+	local next_lang = vim.o.spelllang == "en_us" and "nl" or "en_us"
+	vim.opt_local.spelllang = next_lang
+	vim.notify("spelllang = " .. next_lang)
+end, "Toggle spelllang (en_us/nl)")
