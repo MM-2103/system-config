@@ -134,7 +134,7 @@ install_home_manager() {
     echo "experimental-features = nix-command flakes" >~/.config/nix/nix.conf
 
     # Bootstrap home-manager
-    nix run home-manager/master -- switch --flake ~/.config/home-manager#mm-2103 || {
+    nix run home-manager/master -- switch --flake ~/.config/home-manager || {
         warn "Home-manager bootstrap failed, will try after ansible setup"
     }
 }
@@ -170,7 +170,10 @@ main() {
 
     # Final home-manager setup
     log "🏠 Finalizing home-manager setup..."
-    home-manager switch --flake ~/.config/home-manager#mm-2103
+    # No explicit attribute: home-manager picks homeConfigurations by
+    # user@hostname. On a machine without one it fails loudly rather than
+    # installing another host's config.
+    home-manager switch --flake ~/.config/home-manager
 
     # Post-setup tasks
     log "🔧 Running post-setup tasks..."
