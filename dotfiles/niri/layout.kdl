@@ -1,0 +1,91 @@
+// layout.kdl -- tiling geometry, chrome, overview, blur, cursor
+
+layout {
+    gaps 5
+
+    // Focusing an off-screen column parks it at the edge, not centred.
+    center-focused-column "never"
+
+    // Cycled by Mod+R, backwards by Mod+Shift+R.
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    // The portrait Dell overrides this to 1.0 in monitors.kdl.
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+
+        width 2
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+    }
+
+    // Dimmed from niri's #ffc87f / #505050 for the OLED. What makes focus
+    // readable is the ratio, not absolute brightness: 5.28:1 here against
+    // 5.31:1 stock, with the active border at 39.5% relative luminance
+    // instead of 64%.
+    border {
+        width 2
+        active-color "#d1a05f"
+        inactive-color "#343434"
+        urgent-color "#9b0000"
+    }
+
+    // Colours left unset so tabs inherit the active border colour above.
+    // `hide-when-single-tab` and `place-within-column` are the options worth
+    // knowing about if the indicator gets annoying.
+    tab-indicator {
+    }
+
+    insert-hint {
+        color "#d1a05f80"
+    }
+
+    shadow {
+        // on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+
+    struts {
+    }
+}
+
+// Flat colour behind the workspaces. Kept light because the wallpaper is
+// mostly black, so the backdrop being brighter is what separates them.
+//
+// `place-within-backdrop` on the wallpaper layer was tried and reverted: it
+// moves the wallpaper rather than copying it, so the overview showed the same
+// image behind and inside every workspace. A blurred backdrop needs a second
+// layer surface out of quickshell-bar.
+overview {
+    backdrop-color "#262626"
+}
+
+// niri's defaults, restated so the knobs are visible. Inert on its own: blur
+// applies only to clients using ext-background-effect, or where a window or
+// layer rule sets `background-effect { blur true }`. Quickshell 0.3.1 has no
+// API for it yet and Ghostty gets it in 1.4.
+blur {
+    // off
+    passes 3
+    offset 3
+    noise 0.02
+    saturation 1.5
+}
+
+cursor {
+    xcursor-theme "breeze_cursors"
+
+    // Matches XCURSOR_SIZE in autostart.kdl and dotfiles/uwsm/env.
+    xcursor-size 24
+
+    hide-when-typing
+    hide-after-inactive-ms 10000
+}

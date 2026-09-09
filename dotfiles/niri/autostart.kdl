@@ -1,0 +1,32 @@
+// autostart.kdl -- environment and session startup
+//
+// niri.desktop runs `niri-session`, not uwsm, so dotfiles/uwsm/env is not
+// sourced here. Anything needed from it has to be repeated below.
+//
+// xdg-desktop-autostart works, so only put things here that need the
+// compositor to exist first.
+
+environment {
+    XCURSOR_SIZE "24"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    QT_QPA_PLATFORMTHEME "kde"
+}
+
+// Wallet daemon, backs the KDE portal that QT_QPA_PLATFORMTHEME=kde selects.
+spawn-at-startup "kwalletd6"
+
+// Bar, launcher, clipboard, wallpaper, lock, polkit agent, idle handling.
+spawn-at-startup "qs" "-p" "/home/mm-2103/projects/personal/quickshell-bar" "-d"
+
+spawn-at-startup "udiskie"
+spawn-at-startup "protonvpn-app"
+
+// Clipboard history, read by the quickshell popup on Mod+V.
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
+// Deliberately absent:
+//   hypridle          -- quickshell IdleService + SleepService replaced it
+//   hyprpolkitagent   -- quickshell PolkitService replaced it
+//   waypaper          -- quickshell draws the wallpaper
+//   xwayland-satellite -- niri 25.08+ spawns it on demand and sets $DISPLAY
+//   swayosd-server    -- quickshell has its own OSD

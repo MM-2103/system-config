@@ -1,0 +1,52 @@
+// input.kdl -- keyboard, pointer, touchpad, gestures
+
+input {
+    keyboard {
+        xkb {
+            // Caps Lock is a second Super, so every Mod bind works from either.
+            options "caps:super"
+        }
+
+        repeat-delay 300
+        repeat-rate 30
+    }
+
+    touchpad {
+        // off
+        tap
+        // dwt
+        // drag-lock
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // disabled-on-external-mouse
+    }
+
+    mouse {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+    }
+
+    trackpoint {
+        // off
+        // natural-scroll
+        // middle-emulation
+    }
+
+    // warp-mouse-to-focus
+
+    // max-scroll-amount="0%" limits this to windows already fully on screen,
+    // so drifting past a half-visible column at the edge does not scroll.
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+gestures {
+    // Pointer in a screen corner toggles the overview. Off: it fires when
+    // reaching for a window edge. Individual outputs can re-enable specific
+    // corners in their own `hot-corners` block.
+    hot-corners {
+        off
+    }
+}

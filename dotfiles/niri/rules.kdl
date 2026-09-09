@@ -1,0 +1,82 @@
+// rules.kdl -- window and layer rules
+//
+// Evaluated in order, last match wins for a given property. A property cannot
+// be unset by a later rule, only changed; use `exclude` for exceptions.
+// Matchers are regexes matched anywhere in the string.
+
+// Zen PiP, on the portrait Dell. Matches host Zen ("zen") and Flatpak
+// ("app.zen_browser.zen").
+window-rule {
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+
+    open-on-output "Dell Inc. DELL U2412M YPPY087K0J9U"
+    open-fullscreen true
+    open-floating true
+}
+
+// ---------------------------------------------------------------------------
+// Games and launchers
+// ---------------------------------------------------------------------------
+// No `variable-refresh-rate` rules: VRR measured worse than fixed 240 Hz on
+// this panel. See monitors.kdl.
+
+window-rule {
+    match app-id=r#"steam$"#
+
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"heroic$"#
+
+    open-maximized true
+}
+
+// Wine and Proton, including ffxiv_dx11.exe.
+window-rule {
+    match app-id=r#"\.exe$"#
+
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^steam_app_\d+$"#
+
+    open-maximized true
+}
+
+// gamescope was a Hyprland workaround for the scanout blackout, which does not
+// happen here. Kept only because the Steam launch options are shared with the
+// Hyprland session.
+window-rule {
+    match app-id=r#"^gamescope$"#
+
+    open-maximized true
+}
+
+// ---------------------------------------------------------------------------
+// Floating
+// ---------------------------------------------------------------------------
+
+window-rule {
+    match app-id=r#"Pinentry-gtk$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"xdg-desktop-portal-gtk"#
+    open-floating true
+}
+
+// ---------------------------------------------------------------------------
+// Privacy
+// ---------------------------------------------------------------------------
+// Two matchers in one rule is an OR. "screen-capture" also covers third-party
+// screenshot tools; use "screencast" if you want them visible to those.
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+}

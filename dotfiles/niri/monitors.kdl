@@ -1,0 +1,77 @@
+// monitors.kdl -- outputs
+//
+// Match by make/model/serial from `niri msg outputs`, full string, no prefix
+// matching. Mode must match to 3 decimals or niri silently picks its own.
+//
+// Desktop is DP-1 + DP-2, laptop is eDP-1 + HDMI. Disjoint, so eDP-1 and the
+// LG both claiming 0x0 never collides.
+
+// LG UltraGear+ OLED, primary. Had no block at all until 2026-09, so niri
+// auto-placed it at x=3760, right of the portrait Dell.
+output "LG Electronics LG ULTRAGEAR+ 603NTSUN9974" {
+    mode "2560x1440@240.083"
+    position x=0 y=0
+    scale 1
+    transform "normal"
+    focus-at-startup
+}
+
+// Portrait, right of the LG. 1200 logical px is too narrow to split, so a new
+// window takes the whole strip. Mod+R still cycles the presets.
+output "Dell Inc. DELL U2412M YPPY087K0J9U" {
+    mode "1920x1200@59.950"
+    position x=2560 y=0
+    scale 1
+    transform "90"
+
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}
+
+output "eDP-1" {
+    mode "1920x1080@144.000"
+    position x=0 y=0
+    scale 1
+    transform "normal"
+}
+
+// The laptop's HDMI enumerates as HDMI-A-1 on this machine; HDMI-A-2 is kept
+// because an older config used it. The absent one is ignored.
+output "HDMI-A-1" {
+    mode "1920x1200@59.950"
+    position x=1920 y=0
+    scale 1
+    transform "normal"
+}
+
+output "HDMI-A-2" {
+    mode "1920x1200@59.950"
+    position x=1920 y=0
+    scale 1
+    transform "normal"
+}
+
+// ---------------------------------------------------------------------------
+// HDR and VRR
+// ---------------------------------------------------------------------------
+// No HDR, no colour management, no bit depth control in niri 26.04. Composition
+// is 8-bit only (src/backend/tty.rs at tag v26.04), which is why the Hyprland
+// blackout on composition<->scanout transitions cannot happen here: there is no
+// 10-bit format to flip to, so the plane format never changes.
+//
+// VRR is off, measured on niri rather than inherited. Same game, ~62 fps, 30s
+// each on DP-1:
+//     off   mean 239.93 Hz   stdev  0.00
+//     on    mean  66.36 Hz   stdev 10.92, spiking to 128 Hz whenever an
+//                            overlay drew -- a 2x step, visible on this panel
+// Cap games at a divisor of 240 instead (120/80/60/48): exact vsync cadence,
+// no judder, no flicker. The Hyprland blackout did NOT return with VRR on, so
+// VRR was never its cause.
+//
+// To arm anyway: `variable-refresh-rate on-demand=true` here, plus
+// `variable-refresh-rate true` window rules on the game app-ids. Niri has no
+// fullscreen or content-type gate, so any matching window merely being visible
+// arms it -- keep such rules off launchers and off browser video.
+//
+// BTR thresholds and the HDR history are in ~/.config/hypr/lua/monitors.lua.
