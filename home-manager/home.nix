@@ -16,26 +16,70 @@
   # Packages (formerly both environment.systemPackages + home.packages)
   # ------------------------------------------------------------------
  home.packages = with pkgs; [
-    # lazygit
+     lazygit
     # lazydocker
-    # eza
+     eza
     # protonvpn-gui
-    # sesh
+     sesh
     # evil-helix
-    # dysk
+     dysk
     # pandoc
-    # atuin
-    # dust
-    # tealdeer
-    # zoxide
-    # jq
-    # yq
-    # rustup
-    # cliphist
-    # bat
-    # gh
-    # ripgrep
-    # git-lfs
+     atuin
+     dust
+     tealdeer
+     zoxide
+     jq
+     yq
+     rustup
+     bat
+     fzf
+     gh
+     ripgrep
+     git-lfs
+     tmux
+     lua51Packages.lua
+     luajitPackages.luarocks_bootstrap
+     go
+     php
+     php84Packages.composer
+     nodejs_24
+     python314
+     gcc
+     tree-sitter
+     cliphist
+     brightnessctl
+     nerd-fonts.iosevka
+     hypridle
+     # Provides hyprland-dialog, which Hyprland shells out to for its error and
+     # update popups. Kept here rather than as an RPM so it does not have to be
+     # rebuilt against every Hyprland upgrade; Hyprland finds it because
+     # ~/.nix-profile/bin is already on its PATH.
+     #
+     # QT_QUICK_BACKEND=software is required, not cosmetic. hyprland-dialog is
+     # a Qt Quick app, and a nix-built GPU application cannot reach Fedora's
+     # graphics drivers on a non-NixOS host -- the nixGL problem. Unwrapped it
+     # dies instantly with SIGABRT inside
+     # QSGRenderLoop::handleContextCreationFailure(), which surfaced as
+     # "Service Crash" notifications. hypridle and cliphist are unaffected
+     # because they never touch the GPU.
+     #
+     # The variable is set ONLY on these binaries. It must never go in
+     # environment.d: quickshell-bar is also Qt Quick and has to keep hardware
+     # rendering.
+     (symlinkJoin {
+       name = "hyprland-qtutils-wrapped";
+       paths = [ hyprland-qtutils ];
+       nativeBuildInputs = [ makeWrapper ];
+       postBuild = ''
+         for b in "$out"/bin/*; do
+           wrapProgram "$b" --set QT_QUICK_BACKEND software
+         done
+       '';
+     })
+     pamixer
+     fastfetch
+     wpscan
+     metasploit
    ];
 
   # ------------------------------------------------------------------
@@ -47,6 +91,25 @@
    # XDG_CURRENT_DESKTOP  = "gnome";
     #EDITOR               = "nvim";
   #};
+
+  # ------------------------------------------------------------------
+  # Qt platform theme for D-Bus / systemd-user-activated apps
+  # ------------------------------------------------------------------
+  # xdg-desktop-portal-kde derives the freedesktop appearance color-scheme
+  # value from its own QApplication palette. That palette is only built
+  # from kdeglobals when KDEPlasmaPlatformTheme6.so is loaded, which only
+  # happens when QT_QPA_PLATFORMTHEME=kde is in the process environment.
+  #
+  # Under niri, the systemd user manager (which D-Bus-activates the
+  # portal) doesn't inherit Plasma's per-session env. Setting the var in
+  # environment.d makes the user manager — and every service it spawns —
+  # see it. Without this, the kde portal returns prefer-light regardless
+  # of kdeglobals contents, breaking dark-mode in Helium/Zen/etc.
+  xdg.configFile."environment.d/50-qt-kde-theme.conf".text = ''
+    QT_QPA_PLATFORMTHEME=kde
+    XCURSOR_THEME=breeze_cursors
+    XCURSOR_SIZE=24
+  '';
 
   # ------------------------------------------------------------------
   # Theming
@@ -99,13 +162,19 @@
   # User-level programs
   # ------------------------------------------------------------------
   programs = {
-    # git = {
-    #   enable      = true;
-    #   userName    = "mm-2103";
-    #   userEmail   = "mohsen.menem@protonmail.com";
-    # };
+     # Git config is hand-managed in ~/.gitconfig and ~/.gitconfig-school,
+     # not generated here. Re-enabling this module would recreate the
+     # read-only symlink at ~/.config/git/config and shadow those files.
+     # git = {
+     #   enable      = true;
+     #   userName    = "mm-2103";
+     #   userEmail   = "mohsen.menem@protonmail.com";
+     #   extraConfig = {
+     #     pull.rebase = true;
+     #   };
+     # };
 
-   # starship.enable = true;
+    starship.enable = true;
 
     direnv = {
       enable           = true;
@@ -142,13 +211,13 @@
   # ------------------------------------------------------------------
   # Fonts
   # ------------------------------------------------------------------
-  #fonts.fontconfig = {
-  #  enable = true;
-  #  defaultFonts = {
-  #    monospace = [ "Iosevka Nerd Font Mono" ];
-  #    sansSerif = [ "IBM Plex Sans" "Noto Sans" ];
-  #    serif     = [ "IBM Plex Serif" "Noto Serif" ];
-  #  };
- # };
+  fonts.fontconfig = {
+   enable = true;
+   defaultFonts = {
+     monospace = [ "Iosevka Nerd Font Mono" ];
+    # sansSerif = [ "IBM Plex Sans" "Noto Sans" ];
+    # serif     = [ "IBM Plex Serif" "Noto Serif" ];
+   };
+ };
 
 }
