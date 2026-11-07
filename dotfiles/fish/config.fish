@@ -30,7 +30,7 @@ atuin init fish | sed 's/-k up/up/' | source
 # Starship
 starship init fish | source
 
-# Added by LM Studio CLI (lms)
-set -gx PATH $PATH /home/mm-2103/.lmstudio/bin
-# End of LM Studio CLI section
+# Kill orphaned servers in Mosh
+set -gx MOSH_SERVER_NETWORK_TMOUT 86400
+set -gx MOSH_SERVER_SIGNAL_TMOUT 60
 

@@ -1,6 +1,8 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR QT_QPA_PLATFORMTHEME:\x1d
+SETUVAR --export RESTIC_PASSWORD_FILE:/home/mm\x2d2103/\x2econfig/restic/password
+SETUVAR --export RESTIC_REPOSITORY:sftp\x3ahz_mm\x3arestic
 SETUVAR VK_DRIVER_FILES:\x1d
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_halostatue_2F_fish_2D_direnv_40_v1_files:\x7e/\x2econfig/fish/conf\x2ed/halostatue_fish_direnv\x2efish\x1e\x7e/\x2econfig/fish/completions/direnv\x2efish
