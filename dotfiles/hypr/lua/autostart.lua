@@ -8,27 +8,27 @@
 local QS_PATH = "/home/mm-2103/projects/personal/quickshell-bar"
 
 hl.on("hyprland.start", function()
-  -- Wallet daemon (kwallet is used by the KDE portal / QT_QPA_PLATFORMTHEME=kde).
-  hl.exec_cmd("kwalletd6")
+	-- Wallet daemon (kwallet is used by the KDE portal / QT_QPA_PLATFORMTHEME=kde).
+	hl.exec_cmd("kwalletd6")
 
-  -- quickshell-bar: status bar, launcher, clipboard, wallpaper, session lock.
-  -- It auto-detects Hyprland via HYPRLAND_INSTANCE_SIGNATURE and loads its
-  -- BackendHyprland, so no flags differ from the niri session.
-  hl.exec_cmd("qs -p " .. QS_PATH .. " -d")
+	-- quickshell-bar: status bar, launcher, clipboard, wallpaper, session lock.
+	-- It auto-detects Hyprland via HYPRLAND_INSTANCE_SIGNATURE and loads its
+	-- BackendHyprland, so no flags differ from the niri session.
+	hl.exec_cmd("qs -p " .. QS_PATH .. " -d")
 
-  -- Polkit authentication agent.
-  -- hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
+	-- Polkit authentication agent.
+	-- hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
-  -- Automount removable media.
-  hl.exec_cmd("udiskie")
+	-- Automount removable media.
+	hl.exec_cmd("udiskie")
 
-  hl.exec_cmd("protonvpn-app")
+	-- hl.exec_cmd("protonvpn-app")
 
-  -- Clipboard history, consumed by quickshell-bar's clipboard popup.
-  hl.exec_cmd("wl-paste --watch cliphist store")
+	-- Clipboard history, consumed by quickshell-bar's clipboard popup.
+	hl.exec_cmd("wl-paste --watch cliphist store")
 
-  -- Idle -> lock -> DPMS. See ../hypridle.conf.
-  -- hl.exec_cmd("hypridle")
+	-- Idle -> lock -> DPMS. See ../hypridle.conf.
+	-- hl.exec_cmd("hypridle")
 end)
 
 -- ---------------------------------------------------------------------------
