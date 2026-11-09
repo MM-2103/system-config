@@ -1,0 +1,39 @@
+# Input
+# https://docs.noctalia.dev/umbriel/input/
+#
+[input]
+# No middle-click paste (niri's clipboard disable-primary). Ctrl+C and Ctrl+V
+# are unaffected. Restart apps after turning it back on.
+middle_click_paste = false
+
+[input.keyboard]
+# Any XKB key here stops Umbriel reading the localectl keymap (us,sy), so the
+# layout is spelled out: us only, as in niri and Hyprland.
+layout = "us"
+# Caps Lock is a second Super, so every Mod bind works from either.
+options = "caps:super"
+repeat_delay = 300
+repeat_rate = 30
+# Enable NumLock for the first physical keyboard; later devices inherit current locks.
+numlock_toggle = true
+
+[input.cursor]
+theme = "breeze_cursors"
+# Matches XCURSOR_SIZE in autostart.toml and dotfiles/uwsm/env.
+size = 24
+hide_when_typing = true
+hide_timeout_ms = 10000
+
+# Focus follows the pointer across tiled, floating, and pinned windows.
+[input.focus]
+follows_mouse = true
+# Only windows already fully on screen, so drifting past a half-visible
+# column at the edge does not scroll.
+follows_mouse_max_scroll = 0.0
+# hover_raises = false # Hover focuses only; clicks and keybinds raise.
+
+# Confine touch input to one display.
+#
+# [input.touch]
+# enabled = true
+# map_to_output = "eDP-1"

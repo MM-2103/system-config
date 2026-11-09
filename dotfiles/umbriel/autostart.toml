@@ -1,0 +1,28 @@
+# Environment and session startup, ported from dotfiles/niri/autostart.kdl.
+#
+# umbriel-session.target pulls in xdg-desktop-autostart.target, so entries in
+# ~/.config/autostart still run. Only put things here that need the
+# compositor to exist first.
+#
+# Both tables need an Umbriel restart; a reload doesn't rerun autostart or
+# re-export the environment.
+# https://docs.noctalia.dev/umbriel/configuration/#general
+# https://docs.noctalia.dev/umbriel/configuration/#environment
+
+[environment]
+XCURSOR_SIZE = "24" # Matches [input.cursor] size and dotfiles/uwsm/env.
+ELECTRON_OZONE_PLATFORM_HINT = "auto"
+QT_QPA_PLATFORMTHEME = "kde"
+
+[general]
+autostart = [
+  "noctalia",
+  "kwalletd6", # Backs the KDE portal that QT_QPA_PLATFORMTHEME=kde selects.
+  "udiskie",
+  "protonvpn-app",
+]
+
+# Left out on purpose:
+#   wl-paste --watch cliphist store -- fed the old quickshell Mod+V popup;
+#                                      Noctalia's clipboard panel keeps its
+#                                      own history

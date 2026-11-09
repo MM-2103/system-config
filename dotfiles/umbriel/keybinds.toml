@@ -1,0 +1,248 @@
+# Keybinds, ported from dotfiles/niri/binds.kdl. Where Umbriel's example and
+# niri disagreed, niri's key won. Umbriel-only actions (the Super tap, pinning,
+# tab cycling, scratchpads) sit on keys niri leaves free.
+#
+# Defining this table replaces the built-in bind set, so every active bind that
+# should remain available is listed here.
+# Syntax: https://docs.noctalia.dev/umbriel/keybinds/
+# Actions: https://docs.noctalia.dev/umbriel/actions/
+#
+# Mod is Super on a TTY, Alt when nested. Binds match the unshifted key, so
+# Mod+Shift+Slash and Mod+Shift+Comma work as in niri.
+[keybinds]
+"Mod+Shift+Slash" = "cheatsheet-toggle"
+
+# ------------------------------------------------------------------------------
+# Programs
+
+"Mod+Return" = { action = "spawn footclient", repeat = false }
+"Mod+B" = { action = "spawn zen-browser", repeat = false }
+
+# Noctalia
+# A bare Super tap (or Caps Lock, see input.toml) peeks the bar on the focused
+# monitor, above fullscreen windows too. Tap again to put it away.
+"Mod" = "spawn ~/.config/umbriel/scripts/bar-peek.sh"
+"Mod+P" = { action = "spawn noctalia msg panel-toggle launcher", repeat = false }
+"Mod+S" = { action = "spawn noctalia msg panel-toggle control-center", repeat = false }
+"Mod+V" = { action = "spawn noctalia msg panel-toggle clipboard", repeat = false }
+"Mod+Shift+Comma" = { action = "spawn noctalia msg settings-toggle", repeat = false }
+"Alt+Tab" = { action = "spawn noctalia msg window-switcher hold", repeat = false }
+
+# ------------------------------------------------------------------------------
+# Session
+
+"Mod+Shift+C" = { action = "window-close", repeat = false }
+"Mod+Shift+X" = { action = "spawn loginctl lock-session", repeat = false }
+
+# Both ask for confirmation.
+"Mod+Shift+E" = "session-quit"
+"Ctrl+Alt+Delete" = "session-quit"
+
+# Wakes on any key press or pointer input.
+"Mod+Shift+P" = { action = "dpms-off", repeat = false }
+
+# Escape hatch for apps that inhibit shortcuts (remote desktop, KVMs).
+"Mod+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
+
+# ------------------------------------------------------------------------------
+# Focus: columns and windows
+
+"Mod+Left" = "window-focus-left"
+"Mod+Down" = "window-focus-down"
+"Mod+Up" = "window-focus-up"
+"Mod+Right" = "window-focus-right"
+"Mod+H" = "window-focus-left"
+"Mod+J" = "window-focus-down"
+"Mod+K" = "window-focus-up"
+"Mod+L" = "window-focus-right"
+
+"Mod+Home" = "column-focus-first"
+"Mod+End" = "column-focus-last"
+"Mod+Ctrl+Home" = "column-move-to-first"
+"Mod+Ctrl+End" = "column-move-to-last"
+
+# Umbriel only: every window in layout order.
+"Mod+F1" = "window-focus-next"
+
+# ------------------------------------------------------------------------------
+# Move: columns and windows
+
+"Mod+Ctrl+Left" = "column-move-left"
+"Mod+Ctrl+Down" = "window-move-down"
+"Mod+Ctrl+Up" = "window-move-up"
+"Mod+Ctrl+Right" = "column-move-right"
+"Mod+Ctrl+H" = "column-move-left"
+"Mod+Ctrl+J" = "window-move-down"
+"Mod+Ctrl+K" = "window-move-up"
+"Mod+Ctrl+L" = "column-move-right"
+
+# ------------------------------------------------------------------------------
+# Monitors
+
+"Mod+Shift+Left" = "output-focus-left"
+"Mod+Shift+Down" = "output-focus-down"
+"Mod+Shift+Up" = "output-focus-up"
+"Mod+Shift+Right" = "output-focus-right"
+"Mod+Shift+H" = "output-focus-left"
+"Mod+Shift+J" = "output-focus-down"
+"Mod+Shift+K" = "output-focus-up"
+"Mod+Shift+L" = "output-focus-right"
+
+"Mod+Shift+Ctrl+Left" = "column-move-to-output-left"
+"Mod+Shift+Ctrl+Down" = "column-move-to-output-down"
+"Mod+Shift+Ctrl+Up" = "column-move-to-output-up"
+"Mod+Shift+Ctrl+Right" = "column-move-to-output-right"
+"Mod+Shift+Ctrl+H" = "column-move-to-output-left"
+"Mod+Shift+Ctrl+J" = "column-move-to-output-down"
+"Mod+Shift+Ctrl+K" = "column-move-to-output-up"
+"Mod+Shift+Ctrl+L" = "column-move-to-output-right"
+
+# ------------------------------------------------------------------------------
+# Workspaces
+# Dynamic, stacked vertically, independent per monitor: Umbriel's defaults
+# match niri here, so next is down and previous is up.
+
+"Mod+Page_Down" = "workspace-next"
+"Mod+Page_Up" = "workspace-previous"
+"Mod+U" = "workspace-next"
+"Mod+I" = "workspace-previous"
+"Mod+Ctrl+Page_Down" = "column-move-to-workspace-next"
+"Mod+Ctrl+Page_Up" = "column-move-to-workspace-previous"
+"Mod+Ctrl+U" = "column-move-to-workspace-next"
+"Mod+Ctrl+I" = "column-move-to-workspace-previous"
+
+# Reorder the workspaces themselves.
+"Mod+Shift+Page_Down" = "workspace-move-down"
+"Mod+Shift+Page_Up" = "workspace-move-up"
+"Mod+Shift+U" = "workspace-move-down"
+"Mod+Shift+I" = "workspace-move-up"
+
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
+"Mod+Ctrl+1" = "column-move-to-workspace 1"
+"Mod+Ctrl+2" = "column-move-to-workspace 2"
+"Mod+Ctrl+3" = "column-move-to-workspace 3"
+"Mod+Ctrl+4" = "column-move-to-workspace 4"
+"Mod+Ctrl+5" = "column-move-to-workspace 5"
+"Mod+Ctrl+6" = "column-move-to-workspace 6"
+"Mod+Ctrl+7" = "column-move-to-workspace 7"
+"Mod+Ctrl+8" = "column-move-to-workspace 8"
+"Mod+Ctrl+9" = "column-move-to-workspace 9"
+
+# ------------------------------------------------------------------------------
+# Mouse wheel
+
+"Mod+WheelDown" = { action = "workspace-next", cooldown_ms = 150 }
+"Mod+WheelUp" = { action = "workspace-previous", cooldown_ms = 150 }
+"Mod+Ctrl+WheelDown" = { action = "column-move-to-workspace-next", cooldown_ms = 150 }
+"Mod+Ctrl+WheelUp" = { action = "column-move-to-workspace-previous", cooldown_ms = 150 }
+
+"Mod+WheelRight" = "window-focus-right"
+"Mod+WheelLeft" = "window-focus-left"
+"Mod+Ctrl+WheelRight" = "column-move-right"
+"Mod+Ctrl+WheelLeft" = "column-move-left"
+
+# Shift plus vertical wheel scrolls horizontally, as apps do.
+"Mod+Shift+WheelDown" = "window-focus-right"
+"Mod+Shift+WheelUp" = "window-focus-left"
+"Mod+Ctrl+Shift+WheelDown" = "column-move-right"
+"Mod+Ctrl+Shift+WheelUp" = "column-move-left"
+
+# ------------------------------------------------------------------------------
+# Column composition
+
+# Consume the neighbouring column if the window is alone, expel it if not.
+"Mod+BracketLeft" = "window-consume-or-expel-left"
+"Mod+BracketRight" = "window-consume-or-expel-right"
+
+"Mod+Comma" = "window-consume-from-right"
+# Umbriel has no plain expel. This one expels to the right like niri, except
+# that a window alone in its column joins the column to its right instead of
+# staying put.
+"Mod+Period" = "window-consume-or-expel-right"
+
+# ------------------------------------------------------------------------------
+# Sizing
+# Niri's Mod+Ctrl+R (reset-window-height) and Mod+Ctrl+F
+# (expand-column-to-available-width) have no Umbriel action, so those keys are
+# free.
+
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-secondary-extent"
+
+# Mod+F widens the column, keeping gaps and borders. Mod+M is true maximize:
+# one window to all four edges, bar still visible, no gaps or border.
+# Mod+Shift+F covers the whole output and tells the app it is fullscreen, so
+# players and games hide their chrome.
+"Mod+F" = { action = "window-toggle-maximize", repeat = false }
+"Mod+M" = { action = "window-toggle-maximize-to-edges", repeat = false }
+"Mod+Shift+F" = { action = "window-toggle-fullscreen", repeat = false }
+
+"Mod+C" = "column-center"
+
+"Mod+Minus" = "window-modify-primary-extent -0.1"
+"Mod+Equal" = "window-modify-primary-extent +0.1"
+
+# Only meaningful with more than one window in the column.
+"Mod+Shift+Minus" = "window-modify-secondary-extent -0.1"
+"Mod+Shift+Equal" = "window-modify-secondary-extent +0.1"
+
+# ------------------------------------------------------------------------------
+# Floating, pinning, tabs, overview
+
+"Mod+T" = { action = "window-toggle-floating", repeat = false }
+"Mod+Shift+T" = { action = "window-focus-switch-floating", repeat = false }
+# Umbriel only: keep a window above all others.
+"Mod+Ctrl+T" = { action = "window-toggle-pinned", repeat = false }
+
+"Mod+W" = { action = "column-toggle-tabbed", repeat = false }
+# Unlike niri, Mod+J/K step over a tab group instead of through it, so tabs
+# get their own keys.
+"Mod+Alt+Right" = "column-focus-tab-next"
+"Mod+Alt+Left" = "column-focus-tab-previous"
+# Needs layout.mode = "dwindle".
+# "Mod+Alt+T" = "layout-toggle-split"
+
+"Mod+Shift+W" = { action = "overview-toggle", repeat = false }
+
+# ------------------------------------------------------------------------------
+# Scratchpad (Umbriel only)
+
+"Mod+Shift+Space" = { action = "window-move-to-scratchpad", repeat = false }
+"Mod+Space" = "scratchpad-toggle"
+"Mod+Ctrl+Space" = { action = "window-restore-from-scratchpad", repeat = false }
+"Mod+Tab" = "scratchpad-focus-next"
+
+# ------------------------------------------------------------------------------
+# Screenshots
+# Umbriel has none built in, so Noctalia takes them. The save folder and file
+# name come from Noctalia's [shell.screenshot] settings.
+
+"Print" = { action = "spawn noctalia msg screenshot-region", repeat = false }
+"Ctrl+Print" = { action = "spawn noctalia msg screenshot-fullscreen", repeat = false }
+"Alt+Print" = { action = "spawn noctalia msg screenshot-window", repeat = false }
+
+# ------------------------------------------------------------------------------
+# Media and brightness
+# allow_when_locked keeps these working over the lock screen. Volume and
+# brightness go through Noctalia so its OSD shows.
+
+"XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down", allow_when_locked = true }
+"XF86AudioMute" = { action = "spawn noctalia msg volume-mute", allow_when_locked = true, repeat = false }
+"XF86AudioMicMute" = { action = "spawn wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", allow_when_locked = true, repeat = false }
+
+"XF86AudioNext" = { action = "spawn playerctl next", allow_when_locked = true }
+"XF86AudioPrev" = { action = "spawn playerctl previous", allow_when_locked = true }
+"XF86AudioPlay" = { action = "spawn playerctl play-pause", allow_when_locked = true, repeat = false }
+"XF86AudioPause" = { action = "spawn playerctl play-pause", allow_when_locked = true, repeat = false }
+
+"XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down", allow_when_locked = true }

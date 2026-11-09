@@ -1,0 +1,52 @@
+# Outputs, ported from dotfiles/niri/monitors.kdl.
+# Run `umbriel outputs` to find names, monitor identities and modes.
+# https://docs.noctalia.dev/umbriel/outputs/
+#
+# A section named "<make> <model> <serial>" follows that monitor between
+# ports, and wins over a connector section. Umbriel picks the advertised mode
+# closest to the requested refresh rate.
+#
+# Desktop is DP-1 + DP-2, laptop is eDP-1 + HDMI. Disjoint, so eDP-1 and the
+# LG both claiming 0,0 never collide.
+#
+# VRR stays at Umbriel's default, "disabled": on niri, fixed 240 Hz measured
+# better than VRR on the LG (numbers in dotfiles/niri/monitors.kdl). HDR stays
+# at its default, "off".
+
+# LG UltraGear+ OLED, primary.
+[output."LG Electronics LG ULTRAGEAR+ 603NTSUN9974"]
+mode = "2560x1440@240.083"
+position = [0, 0]
+scale = 1.0
+transform = "normal"
+focus_at_startup = true
+hdr = "auto"
+
+# Portrait, right of the LG. 1200 logical px is too narrow to split, so a new
+# window takes the whole strip. Mod+R still cycles the presets.
+[output."Dell Inc. DELL U2412M YPPY087K0J9U"]
+mode = "1920x1200@59.950"
+position = [2560, 0]
+scale = 1.0
+transform = "90"
+layout.scrolling.default_extent_fraction = 1.0
+
+[output.eDP-1]
+mode = "1920x1080@144"
+position = [0, 0]
+scale = 1.0
+transform = "normal"
+
+# The laptop's HDMI enumerates as HDMI-A-1 on this machine; HDMI-A-2 is kept
+# because an older config used it. The absent one is ignored.
+[output.HDMI-A-1]
+mode = "1920x1200@59.950"
+position = [1920, 0]
+scale = 1.0
+transform = "normal"
+
+[output.HDMI-A-2]
+mode = "1920x1200@59.950"
+position = [1920, 0]
+scale = 1.0
+transform = "normal"
