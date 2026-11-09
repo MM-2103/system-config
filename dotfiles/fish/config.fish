@@ -1,5 +1,5 @@
 # Path
-set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.config/composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" $PATH
+set -gx PATH "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.config/composer/vendor/bin" "$HOME/.cargo/bin" "$HOME/.phpenv/bin" "/home/linuxbrew/.linuxbrew/bin" $PATH
 
 # Zoxide
 zoxide init fish | source
