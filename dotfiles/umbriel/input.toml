@@ -26,7 +26,7 @@ hide_timeout_ms = 10000
 
 # Focus follows the pointer across tiled, floating, and pinned windows.
 [input.focus]
-follows_mouse = true
+follows_mouse = "sloppy"
 # Only windows already fully on screen, so drifting past a half-visible
 # column at the edge does not scroll.
 follows_mouse_max_scroll = 0.0
